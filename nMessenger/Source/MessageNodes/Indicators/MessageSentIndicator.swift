@@ -17,15 +17,17 @@ import UIKit
  */
 open class MessageSentIndicator: GeneralMessengerCell {
     /** Horizontal spacing between text and spinner. Defaults to 20.*/
-    open var contentPadding:CGFloat = 20 {
+    open var contentPadding: CGFloat = 20 {
         didSet {
             self.setNeedsLayout()
         }
     }
+    
     /** Loading text node*/
     open let text = ASTextNode()
+    
     /** Sets the loading attributed text for the spinner. Defaults to *"Loading..."* */
-    open var messageSentAttributedText:NSAttributedString? {
+    open var messageSentAttributedText: NSAttributedString? {
         set {
             text.attributedString = newValue
             self.setNeedsLayout()
@@ -33,19 +35,44 @@ open class MessageSentIndicator: GeneralMessengerCell {
             return text.attributedText
         }
     }
+    
+    open var textColor = UIColor.lightGray {
+        didSet {
+            updateAttributedText()
+        }
+    }
+    
+    open var font = UIFont.systemFont(ofSize: 14) {
+        didSet {
+            updateAttributedText()
+        }
+    }
+    
     open var messageSentText: String? {
         set {
             text.attributedString = NSAttributedString(
                 string: newValue != nil ? newValue! : "",
                 attributes: [
-                    NSFontAttributeName: UIFont.systemFont(ofSize: 14),
-                    NSForegroundColorAttributeName: UIColor.lightGray,
+                    NSFontAttributeName: font,
+                    NSForegroundColorAttributeName: textColor,
                     NSKernAttributeName: -0.3
                 ])
             self.setNeedsLayout()
         } get {
             return text.attributedString?.string
         }
+    }
+    
+    fileprivate func updateAttributedText() {
+        let tmpString = NSMutableAttributedString(string: self.messageSentText ?? "")
+        tmpString.addAttributes([
+            NSFontAttributeName: font,
+            NSForegroundColorAttributeName: textColor,
+            NSKernAttributeName: -0.3
+            ], range: NSMakeRange(0, tmpString.length))
+        text.attributedString = tmpString
+        
+        setNeedsLayout()
     }
     
     public override init() {
