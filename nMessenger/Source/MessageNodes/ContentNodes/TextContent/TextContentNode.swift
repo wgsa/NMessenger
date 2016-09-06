@@ -66,9 +66,11 @@ open class TextContentNode: ContentNode,ASTextNodeDelegate {
             if isIncomingMessage
             {
                 self.backgroundBubble?.bubbleColor = self.bubbleConfiguration.getIncomingColor()
+                self.incomingTextColor = self.bubbleConfiguration.getIncomingTextColor()
                 self.updateAttributedText()
             } else {
                 self.backgroundBubble?.bubbleColor = self.bubbleConfiguration.getOutgoingColor()
+                self.outgoingTextColor = self.bubbleConfiguration.getOutgoingTextColor()
                 self.updateAttributedText()
             }
         }

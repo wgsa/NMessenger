@@ -28,6 +28,14 @@ open class SimpleBubbleConfiguration: BubbleConfigurationProtocol {
         return UIColor.n1MidGreyColor()
     }
     
+    open func getIncomingTextColor() -> UIColor {
+        return UIColor.n1DarkestGreyColor()
+    }
+    
+    open func getOutgoingTextColor() -> UIColor {
+        return UIColor.n1WhiteColor()
+    }
+    
     open func getBubble() -> Bubble
     {
         let newBubble = SimpleBubble()
