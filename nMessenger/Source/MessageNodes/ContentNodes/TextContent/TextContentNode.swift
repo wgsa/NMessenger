@@ -16,7 +16,7 @@ import AsyncDisplayKit
  TextMessageNode class for N Messenger. Extends MessageNode.
  Defines content that is a text.
  */
-open class TextContentNode: ContentNode,ASTextNodeDelegate {
+open class TextContentNode: ContentNode {
 
     // MARK: Public Variables
     /** Insets for the node */
@@ -117,7 +117,6 @@ open class TextContentNode: ContentNode,ASTextNodeDelegate {
     fileprivate func setupTextNode(_ textMessageString: String)
     {
         self.backgroundBubble = self.bubbleConfiguration.getBubble()
-        textMessageNode.delegate = self
         textMessageNode.isUserInteractionEnabled = true
         textMessageNode.linkAttributeNames = ["LinkAttribute","PhoneNumberAttribute"]
         let fontAndSizeAndTextColor = [ NSFontAttributeName: self.isIncomingMessage ? incomingTextFont : outgoingTextFont, NSForegroundColorAttributeName: self.isIncomingMessage ? incomingTextColor : outgoingTextColor]
