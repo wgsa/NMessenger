@@ -60,11 +60,10 @@ open class ImageContentNode: ContentNode {
      Sets the image to be display in the cell. Clips and rounds the corners.
      - parameter image: Must be UIImage. Sets image for cell.
      */
-    fileprivate func setupImageNode(_ image: UIImage)
-    {
+    fileprivate func setupImageNode(_ image: UIImage) {
         imageMessageNode.image = image
         imageMessageNode.clipsToBounds = true
-        imageMessageNode.contentMode = UIViewContentMode.scaleAspectFill
+        imageMessageNode.contentMode = UIViewContentMode.center
         self.imageMessageNode.accessibilityIdentifier = "imageNode"
         self.imageMessageNode.isAccessibilityElement = true
         self.addSubnode(imageMessageNode)
