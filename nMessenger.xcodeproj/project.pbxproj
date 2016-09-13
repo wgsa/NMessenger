@@ -18,6 +18,7 @@
 		19F4C12E1D6CF4550044E340 /* UIFontTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C12C1D6CF4550044E340 /* UIFontTests.swift */; };
 		19F4C1311D6CF4C00044E340 /* BubbleConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C12F1D6CF4C00044E340 /* BubbleConfigurationTests.swift */; };
 		19F4C1321D6CF4C00044E340 /* MessageNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C1301D6CF4C00044E340 /* MessageNodeTests.swift */; };
+		2063619D1D88412800E9F45F /* ImageTapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063619C1D88412800E9F45F /* ImageTapDelegate.swift */; };
 		28457E8C46C45D46D2D84421 /* Pods_nMessengerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD97AC86526A344CE16949C3 /* Pods_nMessengerUITests.framework */; };
 		415491F0BE707FF1C96D6994 /* Pods_nMessengerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4434E3E3AB07FD4D706FA792 /* Pods_nMessengerTests.framework */; };
 		4F533996E6C2AE524171E2E9 /* Pods_nMessenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C25A14129EAD02084B6D6867 /* Pods_nMessenger.framework */; };
@@ -224,6 +225,7 @@
 		19F4C12C1D6CF4550044E340 /* UIFontTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontTests.swift; sourceTree = "<group>"; };
 		19F4C12F1D6CF4C00044E340 /* BubbleConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleConfigurationTests.swift; sourceTree = "<group>"; };
 		19F4C1301D6CF4C00044E340 /* MessageNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageNodeTests.swift; sourceTree = "<group>"; };
+		2063619C1D88412800E9F45F /* ImageTapDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTapDelegate.swift; sourceTree = "<group>"; };
 		235CF2C1939F02045821C29B /* Pods-nMessengerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nMessengerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-nMessengerTests/Pods-nMessengerTests.release.xcconfig"; sourceTree = "<group>"; };
 		365921C271EC3743C281D341 /* Pods-nMessengerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nMessengerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-nMessengerUITests/Pods-nMessengerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4434E3E3AB07FD4D706FA792 /* Pods_nMessengerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nMessengerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -817,6 +819,7 @@
 			isa = PBXGroup;
 			children = (
 				F1FC87221D63813700F3C21C /* ImageContentNode.swift */,
+				2063619C1D88412800E9F45F /* ImageTapDelegate.swift */,
 			);
 			path = ImageContent;
 			sourceTree = "<group>";
@@ -1325,6 +1328,7 @@
 				F1FC87D21D63813700F3C21C /* ModalAlertUtilities.swift in Sources */,
 				F1FC87C71D63813700F3C21C /* GeneralMessengerCell.swift in Sources */,
 				F1FC87D11D63813700F3C21C /* NMessengerViewController.swift in Sources */,
+				2063619D1D88412800E9F45F /* ImageTapDelegate.swift in Sources */,
 				F1FC87BC1D63813700F3C21C /* ImageBubble.swift in Sources */,
 				F1FC87B91D63813700F3C21C /* StandardBubbleConfiguration.swift in Sources */,
 				F1FC87CA1D63813700F3C21C /* MessageCellProtocol.swift in Sources */,

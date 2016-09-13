@@ -225,6 +225,9 @@ open class MessageNode: GeneralMessengerCell {
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(messageNodeLongPressSelector(_:)))
         view.addGestureRecognizer(longPressRecognizer)
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(messageNodeTappedSelector(_:)))
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     /**
@@ -274,6 +277,17 @@ open class MessageNode: GeneralMessengerCell {
      */
     open func messageNodeLongPressSelector(_ recognizer: UITapGestureRecognizer) {
         contentNode?.messageNodeLongPressSelector(recognizer)
+    }
+    
+    // MARK: UITapGestureRecognizer Selector Methods
+    
+    /**
+     UITapGestureRecognizer selector
+     - parameter recognizer: Must be an UITapGestureRecognizer.
+     Can be be overritten when subclassed
+     */
+    open func messageNodeTappedSelector(_ recognizer: UITapGestureRecognizer) {
+        contentNode?.messageNodeTappedSelector(recognizer)
     }
 }
 

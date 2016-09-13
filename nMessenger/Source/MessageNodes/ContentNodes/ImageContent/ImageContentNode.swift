@@ -30,6 +30,7 @@ open class ImageContentNode: ContentNode {
 
     open var width: CGFloat?
     open var height: CGFloat?
+    open var imageTapDelegate: ImageTapDelegate?
     
     // MARK: Private Variables
     /** ASImageNode as the content of the cell*/
@@ -114,6 +115,12 @@ open class ImageContentNode: ContentNode {
                     menuController.setMenuVisible(true, animated:true)
                 })
             }
+        }
+    }
+    
+    open override func messageNodeTappedSelector(_ recognizer: UITapGestureRecognizer) {
+        if let image = self.image, let imageTapDelegate = imageTapDelegate {
+            imageTapDelegate.imageTapped(image)
         }
     }
     
