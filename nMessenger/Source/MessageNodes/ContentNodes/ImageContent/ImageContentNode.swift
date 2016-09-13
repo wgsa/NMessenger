@@ -27,6 +27,9 @@ open class ImageContentNode: ContentNode {
             imageMessageNode.image = newValue
         }
     }
+
+    open var width: CGFloat?
+    open var height: CGFloat?
     
     // MARK: Private Variables
     /** ASImageNode as the content of the cell*/
@@ -74,10 +77,14 @@ open class ImageContentNode: ContentNode {
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        
-        let width = UIScreen.main.bounds.width/3*2
-        
-        imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: width, height: width/4*3))
+        let max = UIScreen.main.bounds.width/3*2
+        var proportions = (image?.size.width)! / (image?.size.height)!
+        if let width = self.width, let height = self.height {
+            proportions = width / height
+        }
+        var scaledWidth = max
+        var scaledHeight = max / proportions
+        imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: scaledWidth, height: scaledHeight))
         return ASStaticLayoutSpec(children: [self.imageMessageNode])
     }
     
