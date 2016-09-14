@@ -105,30 +105,12 @@ open class ImageContentNode: ContentNode {
         return true
     }
     
-    /**
-     Override method from superclass
-     */
-    open override func messageNodeLongPressSelector(_ recognizer: UITapGestureRecognizer) {
-        if recognizer.state == UIGestureRecognizerState.began {
-            
-            let touchLocation = recognizer.location(in: view)
-            if self.imageMessageNode.frame.contains(touchLocation) {
-                
-                view.becomeFirstResponder()
-                
-                delay(0.1, closure: {
-                    let menuController = UIMenuController.shared
-                    menuController.menuItems = [UIMenuItem(title: "Copy", action: #selector(ImageContentNode.copySelector))]
-                    menuController.setTargetRect(self.imageMessageNode.frame, in: self.view)
-                    menuController.setMenuVisible(true, animated:true)
-                })
-            }
-        }
-    }
-    
     open override func messageNodeTappedSelector(_ recognizer: UITapGestureRecognizer) {
-        if let image = self.image, let imageTapDelegate = imageTapDelegate {
-            imageTapDelegate.imageTapped(image)
+        let touchLocation = recognizer.location(in: view)
+        if self.imageMessageNode.frame.contains(touchLocation) {
+            if let image = self.image, let imageTapDelegate = imageTapDelegate {
+                imageTapDelegate.imageTapped(image)
+            }
         }
     }
     
