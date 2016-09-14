@@ -77,13 +77,15 @@ open class ImageContentNode: ContentNode {
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let max = UIScreen.main.bounds.width/3*2
+        let vMax = UIScreen.main.bounds.width/3
+        let hMax = vMax*2
+        
         var proportions = (image?.size.width)! / (image?.size.height)!
         if let width = self.width, let height = self.height {
             proportions = width / height
         }
-        var scaledWidth = max
-        var scaledHeight = max / proportions
+        var scaledWidth = hMax
+        var scaledHeight = min(vMax / proportions, hMax)
         imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: scaledWidth, height: scaledHeight))
         return ASStaticLayoutSpec(children: [self.imageMessageNode])
     }
