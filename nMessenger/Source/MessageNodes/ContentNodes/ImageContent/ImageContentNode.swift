@@ -44,9 +44,15 @@ open class ImageContentNode: ContentNode {
      Calls helper methond to setup cell
      */
     public init(image: UIImage, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
-        
         super.init(bubbleConfiguration: bubbleConfiguration)
-        self.setupImageNode(image)
+        
+        self.setupImageNode(image, contentMode: .center)
+    }
+    
+    public init(image: UIImage, bubbleConfiguration: BubbleConfigurationProtocol? = nil, contentMode: UIViewContentMode) {
+        super.init(bubbleConfiguration: bubbleConfiguration)
+        
+        self.setupImageNode(image, contentMode: contentMode)
     }
     
     // MARK: Initialiser helper method
@@ -61,10 +67,10 @@ open class ImageContentNode: ContentNode {
      Sets the image to be display in the cell. Clips and rounds the corners.
      - parameter image: Must be UIImage. Sets image for cell.
      */
-    fileprivate func setupImageNode(_ image: UIImage) {
+    fileprivate func setupImageNode(_ image: UIImage, contentMode: UIViewContentMode) {
         imageMessageNode.image = image
         imageMessageNode.clipsToBounds = true
-        imageMessageNode.contentMode = UIViewContentMode.center
+        imageMessageNode.contentMode = contentMode
         self.imageMessageNode.accessibilityIdentifier = "imageNode"
         self.imageMessageNode.isAccessibilityElement = true
         self.addSubnode(imageMessageNode)
@@ -77,15 +83,15 @@ open class ImageContentNode: ContentNode {
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let vMax = UIScreen.main.bounds.width/3
-        let hMax = vMax*2
+        let wMax = UIScreen.main.bounds.width/3*2
+        let hMax = wMax*2
         
         var proportions = (image?.size.width)! / (image?.size.height)!
         if let width = self.width, let height = self.height {
             proportions = width / height
         }
-        var scaledWidth = hMax
-        var scaledHeight = min(vMax / proportions, hMax)
+        var scaledWidth = wMax
+        var scaledHeight = min(wMax / proportions, hMax)
         imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: scaledWidth, height: scaledHeight))
         return ASStaticLayoutSpec(children: [self.imageMessageNode])
     }
