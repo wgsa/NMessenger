@@ -65,13 +65,15 @@ open class TextContentNode: ContentNode {
         didSet {
             if isIncomingMessage
             {
-                self.backgroundBubble?.bubbleColor = self.bubbleConfiguration.getIncomingColor()
-                self.incomingTextColor = self.bubbleConfiguration.getIncomingTextColor()
-                self.updateAttributedText()
+                backgroundBubble?.bubbleColor = bubbleConfiguration.getIncomingColor()
+                incomingTextColor = bubbleConfiguration.getIncomingTextColor()
+                incomingTextFont = bubbleConfiguration.getIncomingTextFont()
+                updateAttributedText()
             } else {
-                self.backgroundBubble?.bubbleColor = self.bubbleConfiguration.getOutgoingColor()
-                self.outgoingTextColor = self.bubbleConfiguration.getOutgoingTextColor()
-                self.updateAttributedText()
+                backgroundBubble?.bubbleColor = bubbleConfiguration.getOutgoingColor()
+                outgoingTextColor = bubbleConfiguration.getOutgoingTextColor()
+                outgoingTextFont = bubbleConfiguration.getOutgoingTextFont()
+                updateAttributedText()
             }
         }
     }

@@ -20,20 +20,28 @@ open class StandardBubbleConfiguration: BubbleConfigurationProtocol {
     
     open func getIncomingColor() -> UIColor
     {
-        return UIColor.n1PaleGreyColor()
+        return .n1PaleGreyColor()
     }
     
     open func getOutgoingColor() -> UIColor
     {
-        return UIColor.n1ActionBlueColor()
+        return .n1ActionBlueColor()
     }
     
     open func getIncomingTextColor() -> UIColor {
-        return UIColor.n1DarkestGreyColor()
+        return .n1DarkestGreyColor()
     }
     
     open func getOutgoingTextColor() -> UIColor {
-        return UIColor.n1WhiteColor()
+        return .n1WhiteColor()
+    }
+    
+    open func getIncomingTextFont() -> UIFont {
+        return .n1B1Font()
+    }
+    
+    open func getOutgoingTextFont() -> UIFont {
+        return .n1B1Font()
     }
     
     open func getBubble() -> Bubble

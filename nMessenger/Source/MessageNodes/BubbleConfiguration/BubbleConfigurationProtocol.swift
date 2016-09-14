@@ -25,6 +25,10 @@ public protocol BubbleConfigurationProtocol {
     
     func getOutgoingTextColor() -> UIColor
     
+    func getIncomingTextFont() -> UIFont
+    
+    func getOutgoingTextFont() -> UIFont
+    
     /** Create and return a bubble for the ContentNode */
     func getBubble() -> Bubble
     
