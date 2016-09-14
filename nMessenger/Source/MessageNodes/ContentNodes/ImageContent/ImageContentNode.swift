@@ -44,9 +44,15 @@ open class ImageContentNode: ContentNode {
      Calls helper methond to setup cell
      */
     public init(image: UIImage, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
-        
         super.init(bubbleConfiguration: bubbleConfiguration)
-        self.setupImageNode(image)
+        
+        self.setupImageNode(image, contentMode: .center)
+    }
+    
+    public init(image: UIImage, bubbleConfiguration: BubbleConfigurationProtocol? = nil, contentMode: UIViewContentMode) {
+        super.init(bubbleConfiguration: bubbleConfiguration)
+        
+        self.setupImageNode(image, contentMode: contentMode)
     }
     
     // MARK: Initialiser helper method
@@ -61,10 +67,10 @@ open class ImageContentNode: ContentNode {
      Sets the image to be display in the cell. Clips and rounds the corners.
      - parameter image: Must be UIImage. Sets image for cell.
      */
-    fileprivate func setupImageNode(_ image: UIImage) {
+    fileprivate func setupImageNode(_ image: UIImage, contentMode: UIViewContentMode) {
         imageMessageNode.image = image
         imageMessageNode.clipsToBounds = true
-        imageMessageNode.contentMode = UIViewContentMode.center
+        imageMessageNode.contentMode = contentMode
         self.imageMessageNode.accessibilityIdentifier = "imageNode"
         self.imageMessageNode.isAccessibilityElement = true
         self.addSubnode(imageMessageNode)
