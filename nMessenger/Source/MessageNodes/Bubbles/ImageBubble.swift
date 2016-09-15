@@ -56,18 +56,17 @@ open class ImageBubble : Bubble {
             UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale);
             let context = UIGraphicsGetCurrentContext();
             self.bubbleColor.setFill()
-            context!.translateBy(x: 0, y: image.size.height);
-            context!.scaleBy(x: 1.0, y: -1.0);
-            context!.clip(to: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height), mask: image.cgImage!);
-            context!.fill(CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height));
+            context?.translateBy(x: 0, y: image.size.height)
+            context?.scaleBy(x: 1.0, y: -1.0)
+            context?.clip(to: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height), mask: image.cgImage!)
+            context?.fill(CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
             
-            var coloredImg = UIGraphicsGetImageFromCurrentImageContext();
+            var coloredImg = UIGraphicsGetImageFromCurrentImageContext()
             
-            UIGraphicsEndImageContext();
-            
+            UIGraphicsEndImageContext()            
             
             let insets = self.cutInsets
-            coloredImg = coloredImg!.resizableImage(withCapInsets: insets, resizingMode: .stretch)
+            coloredImg = coloredImg?.resizableImage(withCapInsets: insets, resizingMode: .stretch)
             
             self.layer.contents = coloredImg!.cgImage
             self.layer.position = CGPoint.zero
@@ -77,7 +76,7 @@ open class ImageBubble : Bubble {
                                                    width: 1.0/coloredImg!.size.width,
                                                    height: 1.0/coloredImg!.size.height);
             
-            self.maskLayer.contents = coloredImg!.cgImage
+            self.maskLayer.contents = coloredImg?.cgImage
             self.maskLayer.position = CGPoint.zero
             self.maskLayer.frame = CGRect(x: 0, y: 0, width: self.calculatedBounds.width, height: self.calculatedBounds.height)
             self.maskLayer.contentsCenter = CGRect(x: insets.left/coloredImg!.size.width,
