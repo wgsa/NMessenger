@@ -208,6 +208,14 @@ open class NMessenger: UIView {
         }
     }
     
+    open func forceBatchFetch() {
+        let leadingScreens = messengerNode?.view.leadingScreensForBatching
+        if doesBatchFetch && self.messengerDelegate.batchFetchContent != nil && !self.state.batchFetchLock.isFetching(){
+            self.state.batchFetchLock.beginBatchFetching()
+            self.batchFetchDataInBackground()
+        }
+    }
+    
     //MARK: Removing messages
     /**
      Clears all messages in the messenger. (Fire and forget)
@@ -615,12 +623,11 @@ open class NMessenger: UIView {
             return false
         }
         
-        let viewLength = bounds.size.height;
-        let offset = contentSize.height - targetOffset.y;
-        let contentLength = contentSize.height;
-        //TODO: should we not load when the content is smaller than the screen?
-       // let smallContent = (offset == 0) && (contentLength < viewLength)
-        let smallContent = (contentLength < viewLength)
+        let viewLength = bounds.size.height
+        let offset = contentSize.height - targetOffset.y
+        let contentLength = contentSize.height
+        let smallContent = (offset == 0) && (contentLength < viewLength)
+        //let smallContent = (contentLength < viewLength)
         let triggerDistance = viewLength * leadingScreens
         
         let remainingDistance = contentLength - viewLength - offset
@@ -813,6 +820,6 @@ extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
         }
         
         //set to compare against next scroll action
-        self.state.lastContentOffset = scrollView.contentOffset.y;
+        self.state.lastContentOffset = scrollView.contentOffset.y
     }
 }
