@@ -15,27 +15,27 @@ import AVFoundation
 import Photos
 import AsyncDisplayKit
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l >= r
-  default:
-    return !(lhs < rhs)
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l >= r
+    default:
+        return !(lhs < rhs)
+    }
 }
 
 
-open class NMessengerViewController: UIViewController, UITextViewDelegate, NMessengerDelegate, UIGestureRecognizerDelegate {
+open class NMessengerViewController: UIViewController, UITextViewDelegate, NMessengerDelegate, UIGestureRecognizerDelegate, ImageTapDelegate {
     
     //MARK: Views
     //This is messenger view
@@ -55,6 +55,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     open var messagePadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     /** A shared bubble configuration to use for new messages. Defaults to **SharedBubbleConfiguration***/
     open var sharedBubbleConfiguration: BubbleConfigurationProtocol = StandardBubbleConfiguration()
+    open var imageBubbleConfiguration: BubbleConfigurationProtocol = StandardBubbleConfiguration()
     
     // MARK: Initialisers
     
@@ -213,14 +214,14 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
                 self.isKeyboardIsShown = true
             }
             UIView.animate(withDuration: duration,
-                                       delay: TimeInterval(0),
-                                       options: animationCurve,
-                                       animations: { self.view.layoutIfNeeded()
-                                        if self.isKeyboardIsShown {
-                                            self.messengerView.scrollToLastMessage(true)
-                                        }
+                           delay: TimeInterval(0),
+                           options: animationCurve,
+                           animations: { self.view.layoutIfNeeded()
+                            if self.isKeyboardIsShown {
+                                self.messengerView.scrollToLastMessage(true)
+                            }
                 },
-                                       completion: nil)
+                           completion: nil)
         }
     }
     
@@ -414,7 +415,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-    
+        
         return newMessage
     }
     
@@ -473,7 +474,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-    
+        
         return newMessage
     }
     
@@ -502,7 +503,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-    
+        
         return newMessage
     }
     
@@ -531,7 +532,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-    
+        
         return newMessage
     }
     
@@ -546,5 +547,60 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         self.addMessageToMessenger(newMessage)
         return newMessage
     }
-
+    
+    open func createTitleCell(_ title: String, textColor: UIColor) -> GeneralMessengerCell {
+        let titleCell = MessageSentIndicator()
+        titleCell.messageSentText = title
+        titleCell.textColor = textColor
+        return titleCell
+    }
+    
+    open func createPlaceholderMessage(width: CGFloat?, height: CGFloat?, isIncomingMessage: Bool) -> GeneralMessengerCell {
+        let placeholder = UIImage(named:"icPlaceholder") ?? UIImage()
+        let imageContent = ImageContentNode(image: placeholder, bubbleConfiguration: self.imageBubbleConfiguration)
+        imageContent.height = height
+        imageContent.width = width
+        imageContent.placeholderEnabled = false
+        let newMessage = MessageNode(content: imageContent)
+        newMessage.cellPadding = messagePadding
+        newMessage.currentViewController = self
+        newMessage.isIncomingMessage = isIncomingMessage
+        return newMessage
+    }
+    
+    open func createLocalImageMessage(_ image: UIImage, isIncomingMessage: Bool) -> GeneralMessengerCell {
+        let imageContent = ImageContentNode(image: image, bubbleConfiguration: self.imageBubbleConfiguration, contentMode: .scaleAspectFill)
+        imageContent.imageTapDelegate = self
+        let newMessage = MessageNode(content: imageContent)
+        newMessage.cellPadding = messagePadding
+        newMessage.currentViewController = self
+        newMessage.isIncomingMessage = isIncomingMessage
+        
+        return newMessage
+    }
+    
+    open func swapImageInMessage(_ messageNode: MessageNode, image: UIImage) {
+        let imageContentNode = ImageContentNode(image: image, bubbleConfiguration: self.imageBubbleConfiguration, contentMode: .scaleAspectFill)
+        imageContentNode.imageTapDelegate = self
+        imageContentNode.view.alpha = 0.1
+        UIView.animate(withDuration: 0.2, animations: {
+            messageNode.contentNode?.view.alpha = 0
+            }, completion: { (success) in
+                UIView.animate(withDuration: 0.6) {
+                    imageContentNode.view.alpha = 1.0
+                }
+                messageNode.contentNode = imageContentNode
+            }
+        )
+    }
+    
+    open func imageTapped(_ image: UIImage, sender source: UIView) {
+        let imageWrapper = FullScreenImageWrapper(image)
+        let closeIcon = UIImage() // If close button is wanted replace with UIImage(named:"icClose")
+        let buttonAssets = CloseButtonAssets(normal: closeIcon, highlighted: closeIcon)
+        let configuration = ImageViewerConfiguration(imageSize: CGSize(width: 10, height: 10), closeButtonAssets: buttonAssets)
+        
+        let imageViewer = ImageViewerController(imageProvider: imageWrapper, configuration: configuration, displacedView: source)
+        self.presentImageViewer(imageViewer)
+    }
 }

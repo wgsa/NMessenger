@@ -6,7 +6,8 @@ target 'nMessenger' do
   use_frameworks!
 
   # Pods for nMessenger
-  pod 'AsyncDisplayKit', '~> 1.9.90' 	
+  pod 'AsyncDisplayKit', '~> 1.9.90'
+  pod 'ImageViewer', :git => 'https://github.com/wgsa/ImageViewer.git', :branch => 'swift3'
 
   target 'nMessengerTests' do
     inherit! :search_paths
