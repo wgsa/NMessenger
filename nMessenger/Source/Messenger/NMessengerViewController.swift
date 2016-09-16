@@ -14,6 +14,8 @@ import UIKit
 import AVFoundation
 import Photos
 import AsyncDisplayKit
+import ImageViewer
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
     case let (l?, r?):
@@ -45,16 +47,20 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     
     //MARK: Private Variables
     //Bool to indicate if the keyboard is open
-    open fileprivate(set) var isKeyboardIsShown : Bool = false
+    open fileprivate(set) var isKeyboardIsShown: Bool = false
+    
     //NSLayoutConstraint for the input bar spacing from the bottom
-    fileprivate var inputBarBottomSpacing:NSLayoutConstraint = NSLayoutConstraint()
+    fileprivate var inputBarBottomSpacing: NSLayoutConstraint = NSLayoutConstraint()
+    
     //NSLayoutConstraint for the messenger spacing from the input bar
-    fileprivate var messengerBottomSpacing:NSLayoutConstraint = NSLayoutConstraint()
+    fileprivate var messengerBottomSpacing: NSLayoutConstraint = NSLayoutConstraint()
+    
     //MARK: Public Variables
     //UIEdgeInsets for padding for each message
     open var messagePadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
-    /** A shared bubble configuration to use for new messages. Defaults to **SharedBubbleConfiguration***/
+    
     open var sharedBubbleConfiguration: BubbleConfigurationProtocol = StandardBubbleConfiguration()
+    
     open var imageBubbleConfiguration: BubbleConfigurationProtocol = StandardBubbleConfiguration()
     
     // MARK: Initialisers
@@ -65,6 +71,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      */
     public init() {
         super.init(nibName: nil, bundle: nil)
+        
         self.addObservers()
     }
     // MARK: Initialisers
@@ -77,6 +84,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      */
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
         self.addObservers()
     }
     /**
@@ -85,6 +93,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      */
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
         self.addObservers()
     }
     
@@ -117,11 +126,11 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      */
     override open func viewDidLoad() {
         super.viewDidLoad()
-        //load views
+        
         loadMessengerView()
         loadInputView()
         setUpConstraintsForViews()
-        //swipe down
+        
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(NMessengerViewController.respondToSwipeGesture(_:)))
         swipeDown.direction = UISwipeGestureRecognizerDirection.down
         self.inputBarView.textInputAreaView.addGestureRecognizer(swipeDown)
@@ -143,25 +152,44 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     /**
      Adds BaseInputBarView to the view
      */
-    fileprivate func loadInputView()
-    {
+    fileprivate func loadInputView() {
         self.inputBarView = self.getInputBar()
         self.view.addSubview(inputBarView)
+    }
+    
+    open func setBackgroundImage(withColor color: UIColor) {
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        if let backgroundImage = UIImage.imageWithColor(color: color, size: CGSize(width: width, height: height)) {
+            setBackgroundImage(backgroundImage)
+        }
+    }
+    
+    open func setBackgroundImage(_ image: UIImage) {
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        let imageViewBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        imageViewBackground.image = image
+        imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
+        
+        messengerView.messengerNode?.isOpaque = false
+        self.view.addSubview(imageViewBackground)
+        self.view.sendSubview(toBack: imageViewBackground)
     }
     
     /**
      Override this method to create your own custom InputBarView
      - Returns: A view that extends InputBarView
      */
-    open func getInputBar() -> InputBarView
-    {
+    open func getInputBar() -> InputBarView {
         return NMessengerBarView(controller: self)
     }
     /**
      Adds auto layout constraints for NMessenger and InputBarView
      */
-    fileprivate func setUpConstraintsForViews()
-    {
+    fileprivate func setUpConstraintsForViews() {
         inputBarView.translatesAutoresizingMaskIntoConstraints = false
         self.inputBarBottomSpacing = NSLayoutConstraint(item: self.inputBarView, attribute: .bottom, relatedBy: .equal, toItem: self.bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
         self.view.addConstraint(self.inputBarBottomSpacing)
@@ -250,24 +278,21 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     /**
      Called when adding a network image to the messenger. Override this function to add your message to the VC
      */
-    open func sendNetworkImage(_ imageURL: String, isIncomingMessage:Bool) -> GeneralMessengerCell
-    {
+    open func sendNetworkImage(_ imageURL: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
         return self.postNetworkImage(imageURL,isIncomingMessage: isIncomingMessage)
     }
     
     /**
      Called when adding a collection view with views to the messenger. Override this function to add your message to the VC
      */
-    open func sendCollectionViewWithViews(_ views: [UIView], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
-    {
+    open func sendCollectionViewWithViews(_ views: [UIView], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell {
         return self.postCollectionView(views, numberOfRows: numberOfRows, isIncomingMessage: isIncomingMessage)
     }
     
     /**
      Called when adding a collection view with nodes to the messenger. Override this function to add your message to the VC
      */
-    open func sendCollectionViewWithNodes(_ nodes: [ASDisplayNode], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
-    {
+    open func sendCollectionViewWithNodes(_ nodes: [ASDisplayNode], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell {
         return self.postCollectionView(nodes, numberOfRows: numberOfRows, isIncomingMessage: isIncomingMessage)
     }
     
@@ -275,16 +300,14 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     /**
      Called when adding a a custom view to the messenger. Override this function to add your message to the VC
      */
-    open func sendCustomView(_ view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell
-    {
+    open func sendCustomView(_ view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell {
         return self.postCustomContent(view, isIncomingMessage: isIncomingMessage)
     }
     
     /**
      Called when adding a a custom node to the messenger. Override this function to add your message to the VC
      */
-    open func sendCustomNode(_ node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell
-    {
+    open func sendCustomNode(_ node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell {
         return self.postCustomContent(node, isIncomingMessage: isIncomingMessage)
     }
     
@@ -294,8 +317,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      Adds a message to the messenger
      - parameter message: GeneralMessageCell
      */
-    open func addMessageToMessenger(_ message:GeneralMessengerCell)
-    {
+    open func addMessageToMessenger(_ message:GeneralMessengerCell) {
         message.currentViewController = self
         if message.isIncomingMessage == false {
             self.messengerView.addMessage(message, scrollsToMessage: true, withAnimation: .right)
@@ -317,8 +339,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      Creates an incoming typing indicator
      - parameter avatar: an avatar to add to the typing indicator message
      */
-    open func createTypingIndicator(_ avatar: ASDisplayNode?) -> GeneralMessengerCell
-    {
+    open func createTypingIndicator(_ avatar: ASDisplayNode?) -> GeneralMessengerCell {
         let typing = TypingIndicatorContent(bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: typing)
         newMessage.avatarNode = avatar
@@ -330,8 +351,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      Adds an incoming typing indicator to the messenger
      - parameter avatar: an avatar to add to the typing indicator message
      */
-    open func showTypingIndicator(_ avatar: ASDisplayNode?) -> GeneralMessengerCell
-    {
+    open func showTypingIndicator(_ avatar: ASDisplayNode?) -> GeneralMessengerCell {
         let newMessage = self.createTypingIndicator(avatar)
         messengerView.addTypingIndicator(newMessage, scrollsToLast: false, animated: true, completion: nil)
         return newMessage
@@ -546,6 +566,18 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         let newMessage = self.createCustomContentNodeMessage(node, isIncomingMessage: isIncomingMessage)
         self.addMessageToMessenger(newMessage)
         return newMessage
+    }
+    
+    open func newMessageGroup(isIncoming: Bool) -> MessageGroup {
+        let messageGroup = MessageGroup()
+        messageGroup.isIncomingMessage = isIncoming
+        messageGroup.cellPadding = UIEdgeInsets(top: 2.0, left: 0.0, bottom: 7.0, right: 0.0)
+        
+        for n in messageGroup.subnodes {
+            n.view.backgroundColor = .clear
+        }
+        
+        return messageGroup
     }
     
     open func createTitleCell(_ title: String, textColor: UIColor) -> GeneralMessengerCell {
