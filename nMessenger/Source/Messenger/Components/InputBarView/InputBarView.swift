@@ -28,7 +28,7 @@ open class InputBarView: UIView, UITextViewDelegate {
     
     //MARK: Public Parameters
     
-    open var nibName = "NMessengerBarView"
+    open var nibName = "InputBarView"
     
     open var buttonTintColor = UIColor.n1ActionBlueColor()
     open var inputAreaBackgroundColor = UIColor.white
@@ -195,5 +195,13 @@ open class InputBarView: UIView, UITextViewDelegate {
             textInputView.text = ""
             sendButton.isHidden = true
         }
+    }
+    
+    /**
+     Requests camera and photo library permission if needed
+     Open camera and/or photo library to take/select a photo
+     */
+    @IBAction open func plusClicked(_ sender: AnyObject?) {
+        
     }
 }
