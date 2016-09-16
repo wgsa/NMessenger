@@ -157,15 +157,6 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         self.view.addSubview(inputBarView)
     }
     
-    open func setBackgroundImage(withColor color: UIColor) {
-        let width = UIScreen.main.bounds.size.width
-        let height = UIScreen.main.bounds.size.height
-        
-        if let backgroundImage = UIImage.imageWithColor(color: color, size: CGSize(width: width, height: height)) {
-            setBackgroundImage(backgroundImage)
-        }
-    }
-    
     open func setBackgroundImage(_ image: UIImage) {
         let width = UIScreen.main.bounds.size.width
         let height = UIScreen.main.bounds.size.height

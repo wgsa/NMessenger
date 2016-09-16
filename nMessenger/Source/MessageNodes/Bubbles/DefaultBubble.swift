@@ -1,38 +1,31 @@
 //
-// Copyright (c) 2016 eBay Software Foundation
+//  MessageBubble.swift
+//  WGSA
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//  Created by Gustav Sundin on 07/09/16.
+//  Copyright © 2016 WGSA. All rights reserved.
 //
 
-import Foundation
-import UIKit
+import NMessenger
 
-//MARK: DefaultBubble class
-/**
- Default bubble class is standard with our message configuration. It has three rounded corners and one square corner closest to the avatar.
- */
-open class DefaultBubble: Bubble {
+class DefaultBubble: Bubble {
     
     //MARK: Public Variables
     
     /** Radius of the corners for the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    open var radius : CGFloat = 16
+    open var radius: CGFloat = 16
+    
     /** Should be less or equal to the *radius* property. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    open var borderWidth : CGFloat = 0 //TODO:
+    open var borderWidth: CGFloat = 0
+    
     /** The color of the border around the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    open var bubbleBorderColor : UIColor = UIColor.clear
+    open var bubbleBorderColor = UIColor.clear
+    
     /** Path used to cutout the bubble*/
-    open fileprivate(set) var path: CGMutablePath = CGMutablePath()
+    open fileprivate(set) var path = CGMutablePath()
     
     // MARK: Initialisers
     
-    /**
-     Initialiser class.
-     */
     public override init() {
         super.init()
     }
@@ -43,18 +36,18 @@ open class DefaultBubble: Bubble {
      Overriding sizeToBounds from super class
      -parameter bounds: The bounds of the content
      */
-   open override func sizeToBounds(_ bounds: CGRect) {
+    open override func sizeToBounds(_ bounds: CGRect) {
         super.sizeToBounds(bounds)
         
         var rect = CGRect.zero
         var radius2: CGFloat = 0
         
-       if bounds.width < 2*radius || bounds.height < 2*radius { //if the rect calculation yeilds a negative result
+        if bounds.width < 2*radius || bounds.height < 2*radius { //if the rect calculation yeilds a negative result
             let newRadiusW = bounds.width/2
             let newRadiusH = bounds.height/2
-        
+            
             let newRadius = newRadiusW>newRadiusH ? newRadiusH : newRadiusW
-        
+            
             rect = CGRect(x: newRadius, y: newRadius, width: bounds.width - 2*newRadius, height: bounds.height - 2*newRadius)
             radius2 = newRadius - borderWidth / 2
         } else {
@@ -63,10 +56,11 @@ open class DefaultBubble: Bubble {
         }
         
         path = CGMutablePath()
-	    path.addArc(center: CGPoint(x: rect.maxX, y: rect.minY), radius: radius2, startAngle: CGFloat(-M_PI_2), endAngle: 0, clockwise: false)
-    	path.addLine(to: CGPoint(x: rect.maxX + radius2, y: rect.maxY + radius2))
-    	path.addArc(center: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: false)
-    	path.addArc(center: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI), endAngle: CGFloat(-M_PI_2), clockwise: false)
+        path.addArc(center: CGPoint(x: rect.maxX, y: rect.minY), radius: radius2, startAngle: CGFloat(-M_PI_2), endAngle: 0, clockwise: false)
+        path.addArc(center: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius2, startAngle: CGFloat(0), endAngle: CGFloat(M_PI_2), clockwise: false)
+        path.addArc(center: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: false)
+        path.addArc(center: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI), endAngle: CGFloat(-M_PI_2), clockwise: false)
+        
         path.closeSubpath()
     }
     
@@ -75,7 +69,7 @@ open class DefaultBubble: Bubble {
      */
     open override func createLayer() {
         super.createLayer()
-
+        
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         self.layer.path = path
@@ -88,6 +82,5 @@ open class DefaultBubble: Bubble {
         self.maskLayer.path = path
         self.maskLayer.position = CGPoint.zero
         CATransaction.commit()
-        
     }
 }

@@ -18,13 +18,11 @@ open class StandardBubbleConfiguration: BubbleConfigurationProtocol {
     
     public init() {}
     
-    open func getIncomingColor() -> UIColor
-    {
+    open func getIncomingColor() -> UIColor {
         return .n1PaleGreyColor()
     }
     
-    open func getOutgoingColor() -> UIColor
-    {
+    open func getOutgoingColor() -> UIColor {
         return .n1ActionBlueColor()
     }
     
@@ -44,17 +42,13 @@ open class StandardBubbleConfiguration: BubbleConfigurationProtocol {
         return .n1B1Font()
     }
     
-    open func getBubble() -> Bubble
-    {
+    open func getBubble() -> Bubble {
         let newBubble = DefaultBubble()
         newBubble.hasLayerMask = isMasked
         return newBubble
     }
     
-    open func getSecondaryBubble() -> Bubble
-    {
-        let newBubble = StackedBubble()
-        newBubble.hasLayerMask = isMasked
-        return newBubble
+    open func getSecondaryBubble() -> Bubble {
+        return getBubble()
     }
 }

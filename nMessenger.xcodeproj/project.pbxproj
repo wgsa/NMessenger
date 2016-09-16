@@ -166,13 +166,10 @@
 		F1FC87B51D63813700F3C21C /* loadBubble_0038_Layer-1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1FC870D1D63813700F3C21C /* loadBubble_0038_Layer-1@3x.png */; };
 		F1FC87B61D63813700F3C21C /* BubbleConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87101D63813700F3C21C /* BubbleConfigurationProtocol.swift */; };
 		F1FC87B71D63813700F3C21C /* ImageBubbleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87111D63813700F3C21C /* ImageBubbleConfiguration.swift */; };
-		F1FC87B81D63813700F3C21C /* SimpleBubbleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87121D63813700F3C21C /* SimpleBubbleConfiguration.swift */; };
 		F1FC87B91D63813700F3C21C /* StandardBubbleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87131D63813700F3C21C /* StandardBubbleConfiguration.swift */; };
 		F1FC87BA1D63813700F3C21C /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87151D63813700F3C21C /* Bubble.swift */; };
 		F1FC87BB1D63813700F3C21C /* DefaultBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87161D63813700F3C21C /* DefaultBubble.swift */; };
 		F1FC87BC1D63813700F3C21C /* ImageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87171D63813700F3C21C /* ImageBubble.swift */; };
-		F1FC87BD1D63813700F3C21C /* SimpleBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87181D63813700F3C21C /* SimpleBubble.swift */; };
-		F1FC87BE1D63813700F3C21C /* StackedBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87191D63813700F3C21C /* StackedBubble.swift */; };
 		F1FC87BF1D63813700F3C21C /* CollectionViewContentNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC871C1D63813700F3C21C /* CollectionViewContentNode.swift */; };
 		F1FC87C01D63813700F3C21C /* CustomContentCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC871D1D63813700F3C21C /* CustomContentCellNode.swift */; };
 		F1FC87C11D63813700F3C21C /* ContentNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC871E1D63813700F3C21C /* ContentNode.swift */; };
@@ -386,13 +383,10 @@
 		F1FC870D1D63813700F3C21C /* loadBubble_0038_Layer-1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadBubble_0038_Layer-1@3x.png"; sourceTree = "<group>"; };
 		F1FC87101D63813700F3C21C /* BubbleConfigurationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleConfigurationProtocol.swift; sourceTree = "<group>"; };
 		F1FC87111D63813700F3C21C /* ImageBubbleConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBubbleConfiguration.swift; sourceTree = "<group>"; };
-		F1FC87121D63813700F3C21C /* SimpleBubbleConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleBubbleConfiguration.swift; sourceTree = "<group>"; };
 		F1FC87131D63813700F3C21C /* StandardBubbleConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardBubbleConfiguration.swift; sourceTree = "<group>"; };
 		F1FC87151D63813700F3C21C /* Bubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 		F1FC87161D63813700F3C21C /* DefaultBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultBubble.swift; sourceTree = "<group>"; };
 		F1FC87171D63813700F3C21C /* ImageBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBubble.swift; sourceTree = "<group>"; };
-		F1FC87181D63813700F3C21C /* SimpleBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleBubble.swift; sourceTree = "<group>"; };
-		F1FC87191D63813700F3C21C /* StackedBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackedBubble.swift; sourceTree = "<group>"; };
 		F1FC871C1D63813700F3C21C /* CollectionViewContentNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewContentNode.swift; sourceTree = "<group>"; };
 		F1FC871D1D63813700F3C21C /* CustomContentCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomContentCellNode.swift; sourceTree = "<group>"; };
 		F1FC871E1D63813700F3C21C /* ContentNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentNode.swift; sourceTree = "<group>"; };
@@ -768,7 +762,6 @@
 			children = (
 				F1FC87101D63813700F3C21C /* BubbleConfigurationProtocol.swift */,
 				F1FC87111D63813700F3C21C /* ImageBubbleConfiguration.swift */,
-				F1FC87121D63813700F3C21C /* SimpleBubbleConfiguration.swift */,
 				F1FC87131D63813700F3C21C /* StandardBubbleConfiguration.swift */,
 			);
 			path = BubbleConfiguration;
@@ -780,8 +773,6 @@
 				F1FC87151D63813700F3C21C /* Bubble.swift */,
 				F1FC87161D63813700F3C21C /* DefaultBubble.swift */,
 				F1FC87171D63813700F3C21C /* ImageBubble.swift */,
-				F1FC87181D63813700F3C21C /* SimpleBubble.swift */,
-				F1FC87191D63813700F3C21C /* StackedBubble.swift */,
 			);
 			path = Bubbles;
 			sourceTree = "<group>";
@@ -1322,8 +1313,6 @@
 				F1FC87C01D63813700F3C21C /* CustomContentCellNode.swift in Sources */,
 				F1FC87B71D63813700F3C21C /* ImageBubbleConfiguration.swift in Sources */,
 				F1FC87C81D63813700F3C21C /* HeadLoadingIndicator.swift in Sources */,
-				F1FC87BD1D63813700F3C21C /* SimpleBubble.swift in Sources */,
-				F1FC87BE1D63813700F3C21C /* StackedBubble.swift in Sources */,
 				F1FC87D01D63813700F3C21C /* NMessenger.swift in Sources */,
 				F1FC87C31D63813700F3C21C /* ImageContentNode.swift in Sources */,
 				F1FC87CB1D63813700F3C21C /* MessageGroup.swift in Sources */,
@@ -1342,7 +1331,6 @@
 				F13F39E11D650D490021A858 /* InputBarViewProtocol.swift in Sources */,
 				F1FC87CC1D63813700F3C21C /* MessageNode.swift in Sources */,
 				F1FC87CD1D63813700F3C21C /* CameraViewController.swift in Sources */,
-				F1FC87B81D63813700F3C21C /* SimpleBubbleConfiguration.swift in Sources */,
 				F1FC87C91D63813700F3C21C /* MessageSentIndicator.swift in Sources */,
 				F1FC87D41D63813700F3C21C /* UIFont+N1Fonts.swift in Sources */,
 				F1418CE71D380B2400C404B5 /* AppDelegate.swift in Sources */,
