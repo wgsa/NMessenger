@@ -109,7 +109,7 @@ open class ImageContentNode: ContentNode {
         let touchLocation = recognizer.location(in: view)
         if self.imageMessageNode.frame.contains(touchLocation) {
             if let image = self.image, let imageTapDelegate = imageTapDelegate {
-                imageTapDelegate.imageTapped(image)
+                imageTapDelegate.imageTapped(image, sender: self.view)
             }
         }
     }

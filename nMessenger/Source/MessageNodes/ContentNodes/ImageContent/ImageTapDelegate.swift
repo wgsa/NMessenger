@@ -10,5 +10,5 @@ import Foundation
 import UIKit
 
 public protocol ImageTapDelegate {
-    func imageTapped(_ image: UIImage)
+    func imageTapped(_ image: UIImage, sender: UIView)
 }
