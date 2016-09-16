@@ -20,6 +20,11 @@ open class InputBarView: UIView, UITextViewDelegate {
     //MARK: IBOutlets
     @IBOutlet open weak var textInputAreaView: UIView!
     @IBOutlet open weak var textInputView: UITextView!
+    @IBOutlet open var inputBarView: UIView!
+    @IBOutlet open weak var sendButton: UIButton!
+    @IBOutlet open weak var cameraButton: UIButton!
+    @IBOutlet open weak var textInputAreaViewHeight: NSLayoutConstraint!
+    @IBOutlet open weak var textInputViewHeight: NSLayoutConstraint!
     
     //MARK: Public Parameters
     
@@ -27,22 +32,29 @@ open class InputBarView: UIView, UITextViewDelegate {
     
     open var buttonTintColor = UIColor.n1ActionBlueColor()
     open var inputAreaBackgroundColor = UIColor.white
- 
+    
     open var placeholderTextColor = UIColor.lightGray
     open var textColor = UIColor.n1DarkestGreyColor()
     
     //CGFloat to the fine the number of rows a user can type
     open var numberOfRows: CGFloat = 7
     
+    open var sendButtonTitle = "Send"
+    
     //String as placeholder text in input view
     open var inputPlaceholderText: String = "Write a message" {
         willSet(newVal) {
-            self.textInputView.text = newVal
+            self.textInputView?.text = newVal
         }
     }
     
     //NMessengerViewController where to input is sent to
     open var controller: NMessengerViewController!
+    
+    //MARK: Private Parameters
+    
+    //CGFloat as defualt height for input view
+    fileprivate let textInputViewHeightConst: CGFloat = 30
     
     // MARK: Initialisers
     /**
@@ -86,30 +98,31 @@ open class InputBarView: UIView, UITextViewDelegate {
         commonInit()
     }
     
-    func commonInit() {
+    open func commonInit() {
         loadFromBundle()
         
-        sendButton?.setTitle("Send".localized, for: .normal)
         addInputPlaceholder()
     }
     
     // MARK: Initialiser helper methods
-
+    
     fileprivate func loadFromBundle() {
         Bundle.main.loadNibNamed(nibName, owner: self, options: nil)
         
         self.addSubview(inputBarView)
-        inputBarView.frame = self.bounds
-        textInputView.delegate = self
+        inputBarView?.frame = self.bounds
+        textInputView?.delegate = self
         
-        textInputAreaView.backgroundColor = inputAreaBackgroundColor
+        textInputAreaView?.backgroundColor = inputAreaBackgroundColor
         
         sendButton.setTitleColor(buttonTintColor, for: .normal)
-        cameraButton.tintColor = buttonTintColor
-        cameraButton.adjustsImageWhenHighlighted = true
+        sendButton?.setTitle(sendButtonTitle, for: .normal)
+        
+        cameraButton?.tintColor = buttonTintColor
+        cameraButton?.adjustsImageWhenHighlighted = true
     }
     
-    override func becomeFirstResponder() -> Bool {
+    override open func becomeFirstResponder() -> Bool {
         textInputView.becomeFirstResponder()
         return true
     }
@@ -166,5 +179,21 @@ open class InputBarView: UIView, UITextViewDelegate {
     
     private func placeholderVisible() -> Bool {
         return textInputView.textColor == placeholderTextColor
+    }
+    
+    //MARK: @IBAction selectors
+    
+    /**
+     Send button selector
+     Sends the text in textInputView to the controller
+     */
+    @IBAction open func sendButtonClicked(_ sender: AnyObject) {
+        textInputViewHeight.constant = textInputViewHeightConst
+        textInputAreaViewHeight.constant = textInputViewHeightConst + 10
+        if self.textInputView.text != "" {
+            let _ = controller.sendText(textInputView.text, isIncomingMessage: false)
+            textInputView.text = ""
+            sendButton.isHidden = true
+        }
     }
 }

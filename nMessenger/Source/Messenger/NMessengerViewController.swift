@@ -175,8 +175,9 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      - Returns: A view that extends InputBarView
      */
     open func getInputBar() -> InputBarView {
-        return NMessengerBarView(controller: self)
+        return InputBarView(controller: self)
     }
+    
     /**
      Adds auto layout constraints for NMessenger and InputBarView
      */
@@ -221,12 +222,9 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
                 self.inputBarBottomSpacing.constant = 0
                 self.isKeyboardIsShown = false
             } else {
-                if self.inputBarBottomSpacing.constant==0
-                {
+                if self.inputBarBottomSpacing.constant == 0 {
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
-                }
-                else
-                {
+                } else {
                     self.inputBarBottomSpacing.constant = 0
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
                 }
@@ -291,14 +289,14 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     /**
      Called when adding a a custom view to the messenger. Override this function to add your message to the VC
      */
-    open func sendCustomView(_ view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    open func sendCustomView(_ view: UIView, isIncomingMessage: Bool) -> GeneralMessengerCell {
         return self.postCustomContent(view, isIncomingMessage: isIncomingMessage)
     }
     
     /**
      Called when adding a a custom node to the messenger. Override this function to add your message to the VC
      */
-    open func sendCustomNode(_ node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    open func sendCustomNode(_ node: ASDisplayNode, isIncomingMessage: Bool) -> GeneralMessengerCell {
         return self.postCustomContent(node, isIncomingMessage: isIncomingMessage)
     }
     
@@ -308,7 +306,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      Adds a message to the messenger
      - parameter message: GeneralMessageCell
      */
-    open func addMessageToMessenger(_ message:GeneralMessengerCell) {
+    open func addMessageToMessenger(_ message: GeneralMessengerCell) {
         message.currentViewController = self
         if message.isIncomingMessage == false {
             self.messengerView.addMessage(message, scrollsToMessage: true, withAnimation: .right)
@@ -319,9 +317,8 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     
     /**
      Adds a general message to the messenger. Default animation is fade.
-     - parameter messageGroup: MessageGroup
      */
-    open func addGeneralMessengerToMessenger(_ message: GeneralMessengerCell) {
+    open func addGeneralMessageToMessenger(_ message: GeneralMessengerCell) {
         message.currentViewController = self
         self.messengerView.addMessage(message, scrollsToMessage: false, withAnimation: .fade)
     }

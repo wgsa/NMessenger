@@ -6,7 +6,7 @@
 //  Copyright © 2016 WGSA. All rights reserved.
 //
 
-import NMessenger
+import UIKit
 
 class MessageBubble: Bubble {
     
