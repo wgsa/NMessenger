@@ -168,7 +168,7 @@
 		F1FC87B71D63813700F3C21C /* ImageBubbleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87111D63813700F3C21C /* ImageBubbleConfiguration.swift */; };
 		F1FC87B91D63813700F3C21C /* StandardBubbleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87131D63813700F3C21C /* StandardBubbleConfiguration.swift */; };
 		F1FC87BA1D63813700F3C21C /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87151D63813700F3C21C /* Bubble.swift */; };
-		F1FC87BB1D63813700F3C21C /* DefaultBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87161D63813700F3C21C /* DefaultBubble.swift */; };
+		F1FC87BB1D63813700F3C21C /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87161D63813700F3C21C /* MessageBubble.swift */; };
 		F1FC87BC1D63813700F3C21C /* ImageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87171D63813700F3C21C /* ImageBubble.swift */; };
 		F1FC87BF1D63813700F3C21C /* CollectionViewContentNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC871C1D63813700F3C21C /* CollectionViewContentNode.swift */; };
 		F1FC87C01D63813700F3C21C /* CustomContentCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC871D1D63813700F3C21C /* CustomContentCellNode.swift */; };
@@ -385,7 +385,7 @@
 		F1FC87111D63813700F3C21C /* ImageBubbleConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBubbleConfiguration.swift; sourceTree = "<group>"; };
 		F1FC87131D63813700F3C21C /* StandardBubbleConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardBubbleConfiguration.swift; sourceTree = "<group>"; };
 		F1FC87151D63813700F3C21C /* Bubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
-		F1FC87161D63813700F3C21C /* DefaultBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultBubble.swift; sourceTree = "<group>"; };
+		F1FC87161D63813700F3C21C /* MessageBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
 		F1FC87171D63813700F3C21C /* ImageBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBubble.swift; sourceTree = "<group>"; };
 		F1FC871C1D63813700F3C21C /* CollectionViewContentNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewContentNode.swift; sourceTree = "<group>"; };
 		F1FC871D1D63813700F3C21C /* CustomContentCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomContentCellNode.swift; sourceTree = "<group>"; };
@@ -771,7 +771,7 @@
 			isa = PBXGroup;
 			children = (
 				F1FC87151D63813700F3C21C /* Bubble.swift */,
-				F1FC87161D63813700F3C21C /* DefaultBubble.swift */,
+				F1FC87161D63813700F3C21C /* MessageBubble.swift */,
 				F1FC87171D63813700F3C21C /* ImageBubble.swift */,
 			);
 			path = Bubbles;
@@ -1335,7 +1335,7 @@
 				F1FC87D41D63813700F3C21C /* UIFont+N1Fonts.swift in Sources */,
 				F1418CE71D380B2400C404B5 /* AppDelegate.swift in Sources */,
 				F1FC87BF1D63813700F3C21C /* CollectionViewContentNode.swift in Sources */,
-				F1FC87BB1D63813700F3C21C /* DefaultBubble.swift in Sources */,
+				F1FC87BB1D63813700F3C21C /* MessageBubble.swift in Sources */,
 				F1FC87C51D63813700F3C21C /* TextContentNode.swift in Sources */,
 				F1FC87C61D63813700F3C21C /* TypingIndicatorContent.swift in Sources */,
 				F1FC87C11D63813700F3C21C /* ContentNode.swift in Sources */,

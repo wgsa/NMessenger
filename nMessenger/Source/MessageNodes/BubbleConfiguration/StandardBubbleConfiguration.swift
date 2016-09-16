@@ -43,7 +43,7 @@ open class StandardBubbleConfiguration: BubbleConfigurationProtocol {
     }
     
     open func getBubble() -> Bubble {
-        let newBubble = DefaultBubble()
+        let newBubble = MessageBubble()
         newBubble.hasLayerMask = isMasked
         return newBubble
     }

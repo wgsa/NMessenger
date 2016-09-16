@@ -62,7 +62,7 @@ class BubbleTests: XCTestCase {
     }
     
     func testBubbleDefault() {
-        let bubble = DefaultBubble()
+        let bubble = MessageBubble()
         XCTAssertNotNil(bubble.layer)
         XCTAssertNotNil(bubble.maskLayer)
         XCTAssertEqual(bubble.hasLayerMask, false)

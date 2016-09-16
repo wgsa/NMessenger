@@ -28,6 +28,7 @@ open class Bubble {
      A layer for the bubble. Make sure this property is first accessed on the main thread.
      */
     open lazy var layer: CAShapeLayer = CAShapeLayer()
+    
     /**
      A layer that holds a mask which is the same shape as the bubble. This can be used to mask anything in the ContentNode to the same shape as the bubble.
      */
@@ -48,7 +49,6 @@ open class Bubble {
         self.calculatedBounds = bounds
     }
     
-    
     /**
      This function should be called on the  main thread. It makes creates the layer with the calculated values from *sizeToBounds*
      */
@@ -59,5 +59,4 @@ open class Bubble {
         self.maskLayer.shouldRasterize = true
         self.maskLayer.rasterizationScale = UIScreen.main.scale
     }
-    
 }

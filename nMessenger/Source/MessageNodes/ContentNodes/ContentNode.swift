@@ -21,14 +21,17 @@ open class ContentNode: ASDisplayNode {
     // MARK: Public Parameters
     /** Bubble that defines the background for the message*/
     open var backgroundBubble: Bubble?
+    
     /** UIViewController that holds the cell. Allows the cell the present View Controllers. Generally used for UIMenu or UIAlert Options*/
     open var currentViewController: UIViewController?
+    
     /** MessageConfigurationProtocol hold common definition for all messages. Defaults to **StandardMessageConfiguration***/
     open var bubbleConfiguration : BubbleConfigurationProtocol = StandardBubbleConfiguration() {
         didSet {
             self.updateBubbleConfig(self.bubbleConfiguration)
         }
     }
+    
     /** Bool if the cell is an incoming or out going message.
      Set backgroundBubble.bubbleColor when value is changed
      */
@@ -49,6 +52,7 @@ open class ContentNode: ASDisplayNode {
             self.bubbleConfiguration = bubbleConfiguration
         }
         super.init()
+        
         //make sure the bubble is set correctly
         self.updateBubbleConfig(self.bubbleConfiguration)
     }
@@ -59,6 +63,7 @@ open class ContentNode: ASDisplayNode {
      */
     override open func didLoad() {
         super.didLoad()
+        
         self.addSublayers()
     }
     

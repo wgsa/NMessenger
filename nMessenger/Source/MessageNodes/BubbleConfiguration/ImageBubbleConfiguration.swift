@@ -9,7 +9,7 @@
 import UIKit
 import NMessenger
 
-class ChatImageBubbleConfiguration: StandardBubbleConfiguration {
+class ImageBubbleConfiguration: StandardBubbleConfiguration {
     open func getBubbleBorderColor() -> UIColor {
     	return .black
     }

@@ -8,7 +8,7 @@
 
 import NMessenger
 
-class DefaultBubble: Bubble {
+class MessageBubble: Bubble {
     
     //MARK: Public Variables
     
