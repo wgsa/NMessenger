@@ -23,7 +23,6 @@
 		415491F0BE707FF1C96D6994 /* Pods_nMessengerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4434E3E3AB07FD4D706FA792 /* Pods_nMessengerTests.framework */; };
 		4F533996E6C2AE524171E2E9 /* Pods_nMessenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C25A14129EAD02084B6D6867 /* Pods_nMessenger.framework */; };
 		6FE5F19C1D8C1E2600740A22 /* FullScreenImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5F19B1D8C1E2600740A22 /* FullScreenImageWrapper.swift */; };
-		F13F39E11D650D490021A858 /* InputBarViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13F39E01D650D490021A858 /* InputBarViewProtocol.swift */; };
 		F1418CE71D380B2400C404B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1418CE61D380B2400C404B5 /* AppDelegate.swift */; };
 		F1418CE91D380B2400C404B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1418CE81D380B2400C404B5 /* ViewController.swift */; };
 		F1418CEC1D380B2400C404B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1418CEA1D380B2400C404B5 /* Main.storyboard */; };
@@ -234,7 +233,6 @@
 		C25A14129EAD02084B6D6867 /* Pods_nMessenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nMessenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC839284AFA7DB893F973E0E /* Pods-nMessengerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nMessengerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-nMessengerTests/Pods-nMessengerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D8E16F878BDF6B6026F622AC /* Pods-nMessengerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nMessengerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-nMessengerUITests/Pods-nMessengerUITests.release.xcconfig"; sourceTree = "<group>"; };
-		F13F39E01D650D490021A858 /* InputBarViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputBarViewProtocol.swift; sourceTree = "<group>"; };
 		F1418CE31D380B2400C404B5 /* nMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1418CE61D380B2400C404B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1418CE81D380B2400C404B5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -892,7 +890,6 @@
 		F1FC87351D63813700F3C21C /* InputBarView */ = {
 			isa = PBXGroup;
 			children = (
-				F13F39E01D650D490021A858 /* InputBarViewProtocol.swift */,
 				F14C8B681D66273700F8616F /* InputBarView.swift */,
 				F1FC87361D63813700F3C21C /* NMessengerBarView.swift */,
 				F1FC87371D63813700F3C21C /* NMessengerBarView.xib */,
@@ -1328,7 +1325,6 @@
 				F1FC87C41D63813700F3C21C /* NetworkImageContentNode.swift in Sources */,
 				F1FC87CE1D63813700F3C21C /* NMessengerBarView.swift in Sources */,
 				F1FC87BA1D63813700F3C21C /* Bubble.swift in Sources */,
-				F13F39E11D650D490021A858 /* InputBarViewProtocol.swift in Sources */,
 				F1FC87CC1D63813700F3C21C /* MessageNode.swift in Sources */,
 				F1FC87CD1D63813700F3C21C /* CameraViewController.swift in Sources */,
 				F1FC87C91D63813700F3C21C /* MessageSentIndicator.swift in Sources */,

@@ -15,19 +15,34 @@ import UIKit
  InputBarView class for NMessenger.
  Define the input bar for NMessenger. This is where the user would type text and open the camera or photo library.
  */
-open class InputBarView: UIView, InputBarViewProtocol {
+open class InputBarView: UIView, UITextViewDelegate {
     
     //MARK: IBOutlets
-    //@IBOutlets for input area view
     @IBOutlet open weak var textInputAreaView: UIView!
-    //@IBOutlets for input view
     @IBOutlet open weak var textInputView: UITextView!
     
     //MARK: Public Parameters
     
-    //MARK: Private Parameters
+    open var nibName = "NMessengerBarView"
+    
+    open var buttonTintColor = UIColor.n1ActionBlueColor()
+    open var inputAreaBackgroundColor = UIColor.white
+ 
+    open var placeholderTextColor = UIColor.lightGray
+    open var textColor = UIColor.n1DarkestGreyColor()
+    
+    //CGFloat to the fine the number of rows a user can type
+    open var numberOfRows: CGFloat = 7
+    
+    //String as placeholder text in input view
+    open var inputPlaceholderText: String = "Write a message" {
+        willSet(newVal) {
+            self.textInputView.text = newVal
+        }
+    }
+    
     //NMessengerViewController where to input is sent to
-    open var controller:NMessengerViewController!
+    open var controller: NMessengerViewController!
     
     // MARK: Initialisers
     /**
@@ -35,31 +50,121 @@ open class InputBarView: UIView, InputBarViewProtocol {
      - parameter controller: Must be NMessengerViewController. Sets controller for the view.
      Calls helper methond to setup the view
      */
-    public required init()
-    {
+    public required init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        
+        commonInit()
     }
     
-    public required init(controller:NMessengerViewController) {
+    public required init(controller: NMessengerViewController) {
         super.init(frame: CGRect.zero)
+        
         self.controller = controller
+        commonInit()
     }
+    
     /**
      Initialiser the view.
      - parameter controller: Must be NMessengerViewController. Sets controller for the view.
      - parameter controller: Must be CGRect. Sets frame for the view.
      Calls helper methond to setup the view
      */
-    public required init(controller:NMessengerViewController,frame: CGRect) {
+    public required init(controller: NMessengerViewController, frame: CGRect) {
         super.init(frame: frame)
+        
         self.controller = controller
+        commonInit()
     }
+    
     /**
      - parameter aDecoder: Must be NSCoder
      Calls helper methond to setup the view
      */
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        commonInit()
     }
     
+    func commonInit() {
+        loadFromBundle()
+        
+        sendButton?.setTitle("Send".localized, for: .normal)
+        addInputPlaceholder()
+    }
+    
+    // MARK: Initialiser helper methods
+
+    fileprivate func loadFromBundle() {
+        Bundle.main.loadNibNamed(nibName, owner: self, options: nil)
+        
+        self.addSubview(inputBarView)
+        inputBarView.frame = self.bounds
+        textInputView.delegate = self
+        
+        textInputAreaView.backgroundColor = inputAreaBackgroundColor
+        
+        sendButton.setTitleColor(buttonTintColor, for: .normal)
+        cameraButton.tintColor = buttonTintColor
+        cameraButton.adjustsImageWhenHighlighted = true
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        textInputView.becomeFirstResponder()
+        return true
+    }
+    
+    // MARK: Text input behaviour
+    
+    open func getText() -> String {
+        return placeholderVisible() ? "" : textInputView.text
+    }
+    
+    open func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if placeholderVisible() {
+            removeInputPlaceholder()
+        }
+        
+        return true
+    }
+    
+    open func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if self.textInputView.text.isEmpty {
+            self.addInputPlaceholder()
+        }
+        
+        self.textInputView.resignFirstResponder()
+        return true
+    }
+    
+    open func textViewDidChange(_ textView: UITextView) {
+        let fixedWidth = textView.frame.size.width
+        textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        var newFrame = textView.frame
+        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+        
+        textInputViewHeight.constant = newFrame.size.height
+        textInputAreaViewHeight.constant = newFrame.size.height + 10
+        
+        UIView.animate(withDuration: 0.1) {
+            self.sendButton.isHidden = textView.text.isEmpty
+        }
+    }
+    
+    open func addInputPlaceholder() {
+        textInputView.text = inputPlaceholderText
+        textInputView.textColor = placeholderTextColor
+        sendButton.isHidden = true
+    }
+    
+    open func removeInputPlaceholder() {
+        textInputView.text = ""
+        textInputView.textColor = textColor
+        textInputView.selectedRange = NSRange(location: 0, length: 0)
+    }
+    
+    private func placeholderVisible() -> Bool {
+        return textInputView.textColor == placeholderTextColor
+    }
 }

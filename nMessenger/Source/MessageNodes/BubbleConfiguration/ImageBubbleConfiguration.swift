@@ -7,30 +7,29 @@
 //
 
 import UIKit
-import NMessenger
 
-class ImageBubbleConfiguration: StandardBubbleConfiguration {
+open class ImageBubbleConfiguration: StandardBubbleConfiguration {
     open func getBubbleBorderColor() -> UIColor {
     	return .black
     }
     
-    override func getIncomingColor() -> UIColor {
+    override open func getIncomingColor() -> UIColor {
         return .clear
     }
     
-    override func getOutgoingColor() -> UIColor {
+    override open func getOutgoingColor() -> UIColor {
         return .clear
     }
     
-    override func getIncomingTextColor() -> UIColor {
+    override open func getIncomingTextColor() -> UIColor {
         return .black
     }
     
-    override func getOutgoingTextColor() -> UIColor {
+    override open func getOutgoingTextColor() -> UIColor {
         return .black
     }
     
-    override func getBubble() -> Bubble {
+    override open func getBubble() -> Bubble {
         let newBubble = MessageBubble()
         newBubble.hasLayerMask = isMasked
         newBubble.borderWidth = 4
@@ -38,7 +37,7 @@ class ImageBubbleConfiguration: StandardBubbleConfiguration {
         return newBubble
     }
     
-    override func getSecondaryBubble() -> Bubble {
+    override open func getSecondaryBubble() -> Bubble {
         return getBubble()
     }
 }
