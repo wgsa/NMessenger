@@ -1,33 +1,31 @@
 //
-// Copyright (c) 2016 eBay Software Foundation
+//  MessageBubble.swift
+//  WGSA
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//  Created by Gustav Sundin on 07/09/16.
+//  Copyright © 2016 WGSA. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-//MARK: StackedBubble class
-/**
- Bubble when stacked for succeeding messages. The two outmost corners are rounded.
- */
-open class StackedBubble: Bubble {
+class MessageBubble: Bubble {
     
     //MARK: Public Variables
     
     /** Radius of the corners for the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    open var radius : CGFloat = 16
+    open var radius: CGFloat = 16
+    
     /** Should be less or equal to the *radius* property. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    open var borderWidth : CGFloat = 0
+    open var borderWidth: CGFloat = 0
+    
     /** The color of the border around the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    open var bubbleBorderColor : UIColor = UIColor.clear
+    open var bubbleBorderColor = UIColor.clear
+    
     /** Path used to cutout the bubble*/
-    open fileprivate(set) var path: CGMutablePath = CGMutablePath()
-
+    open fileprivate(set) var path = CGMutablePath()
+    
+    // MARK: Initialisers
+    
     public override init() {
         super.init()
     }
@@ -40,6 +38,7 @@ open class StackedBubble: Bubble {
      */
     open override func sizeToBounds(_ bounds: CGRect) {
         super.sizeToBounds(bounds)
+        
         var rect = CGRect.zero
         var radius2: CGFloat = 0
         
@@ -56,15 +55,13 @@ open class StackedBubble: Bubble {
             radius2 = radius - borderWidth / 2
         }
         
-        
-        self.path = CGMutablePath();
-        path.move(to: CGPoint(x: rect.minX, y: rect.minY - radius2))
-        path.addLine(to: CGPoint(x: rect.maxX + radius2, y: rect.minY - radius2))
-        path.addLine(to: CGPoint(x: rect.maxX + radius2, y: rect.maxY + radius2))
+        path = CGMutablePath()
+        path.addArc(center: CGPoint(x: rect.maxX, y: rect.minY), radius: radius2, startAngle: CGFloat(-M_PI_2), endAngle: 0, clockwise: false)
+        path.addArc(center: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius2, startAngle: CGFloat(0), endAngle: CGFloat(M_PI_2), clockwise: false)
         path.addArc(center: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: false)
         path.addArc(center: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI), endAngle: CGFloat(-M_PI_2), clockwise: false)
-        path.closeSubpath()
         
+        path.closeSubpath()
     }
     
     /**
@@ -72,7 +69,7 @@ open class StackedBubble: Bubble {
      */
     open override func createLayer() {
         super.createLayer()
-      
+        
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         self.layer.path = path

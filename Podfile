@@ -6,7 +6,8 @@ target 'nMessenger' do
   use_frameworks!
 
   # Pods for nMessenger
-  pod 'AsyncDisplayKit', '~> 1.9.90' 	
+  pod 'AsyncDisplayKit', '~> 1.9.90'
+  pod 'ImageViewer', :git => 'https://github.com/wgsa/ImageViewer.git', :branch => 'swift3'
 
   target 'nMessengerTests' do
     inherit! :search_paths
@@ -16,6 +17,15 @@ target 'nMessenger' do
   target 'nMessengerUITests' do
     inherit! :search_paths
     # Pods for testing
+  end
+  
+  # Configure installed pods to use Swift 3.0
+  post_install do |installer|
+      installer.pods_project.targets.each do |target|
+          target.build_configurations.each do |config|
+              config.build_settings['SWIFT_VERSION'] = '3.0'
+          end
+      end
   end
 
 end

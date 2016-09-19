@@ -16,22 +16,20 @@ import UIKit
 Image as background for messages in NMessenger
 Uses 9-Patch logic to resize image to appropriate size.
  */
-open class ImageBubble : Bubble {
+open class ImageBubble: Bubble {
     
     // MARK: Public variables
     /** Image 9-Patch used for bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
     open var bubbleImage: UIImage?
+    
     /** Image 9-Patch cut insets. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
     open var cutInsets: UIEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
     
     // MARK: Initialisers
     
-    /**
-     Initialiser class.
-     Sets hasLayerMask to true
-     */
     public override init() {
         super.init()
+        
         self.hasLayerMask = true
     }
     
@@ -43,7 +41,6 @@ open class ImageBubble : Bubble {
      */
     open override func sizeToBounds(_ bounds: CGRect) {
         super.sizeToBounds(bounds)
-        
     }
     
     /**
@@ -85,6 +82,4 @@ open class ImageBubble : Bubble {
                                                    height: 1.0/coloredImg!.size.height);
         }
     }
-    
-    
 }
