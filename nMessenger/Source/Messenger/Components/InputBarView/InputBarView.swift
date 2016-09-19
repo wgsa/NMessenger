@@ -28,7 +28,7 @@ open class InputBarView: UIView, UITextViewDelegate {
     
     //MARK: Public Parameters
     
-    open var nibName = "InputBarView"
+    open var nibName = "NMessengerBarView"
     
     open var buttonTintColor = UIColor.n1ActionBlueColor()
     open var inputAreaBackgroundColor = UIColor.white
@@ -44,7 +44,7 @@ open class InputBarView: UIView, UITextViewDelegate {
     //String as placeholder text in input view
     open var inputPlaceholderText: String = "Write a message" {
         willSet(newVal) {
-            self.textInputView?.text = newVal
+            textInputView?.text = newVal
         }
     }
     
@@ -109,7 +109,7 @@ open class InputBarView: UIView, UITextViewDelegate {
     fileprivate func loadFromBundle() {
         Bundle.main.loadNibNamed(nibName, owner: self, options: nil)
         
-        self.addSubview(inputBarView)
+        addSubview(inputBarView)
         inputBarView?.frame = self.bounds
         textInputView?.delegate = self
         
@@ -142,11 +142,11 @@ open class InputBarView: UIView, UITextViewDelegate {
     }
     
     open func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        if self.textInputView.text.isEmpty {
-            self.addInputPlaceholder()
+        if textInputView.text.isEmpty {
+            addInputPlaceholder()
         }
         
-        self.textInputView.resignFirstResponder()
+        textInputView.resignFirstResponder()
         return true
     }
     
@@ -190,7 +190,7 @@ open class InputBarView: UIView, UITextViewDelegate {
     @IBAction open func sendButtonClicked(_ sender: AnyObject) {
         textInputViewHeight.constant = textInputViewHeightConst
         textInputAreaViewHeight.constant = textInputViewHeightConst + 10
-        if self.textInputView.text != "" {
+        if textInputView.text != "" {
             let _ = controller.sendText(textInputView.text, isIncomingMessage: false)
             textInputView.text = ""
             sendButton.isHidden = true

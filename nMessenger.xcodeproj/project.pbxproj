@@ -23,7 +23,9 @@
 		415491F0BE707FF1C96D6994 /* Pods_nMessengerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4434E3E3AB07FD4D706FA792 /* Pods_nMessengerTests.framework */; };
 		4F533996E6C2AE524171E2E9 /* Pods_nMessenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C25A14129EAD02084B6D6867 /* Pods_nMessenger.framework */; };
 		6FE5F19C1D8C1E2600740A22 /* FullScreenImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5F19B1D8C1E2600740A22 /* FullScreenImageWrapper.swift */; };
-		6FE5F1A01D8C3D2000740A22 /* InputBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE5F19F1D8C3D2000740A22 /* InputBarView.xib */; };
+		6FE5F1A41D8FC4D400740A22 /* NMessengerBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE5F1A31D8FC4D400740A22 /* NMessengerBarView.xib */; };
+		6FE5F1A51D8FC4D400740A22 /* NMessengerBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE5F1A31D8FC4D400740A22 /* NMessengerBarView.xib */; };
+		6FE5F1A61D8FC4D400740A22 /* NMessengerBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE5F1A31D8FC4D400740A22 /* NMessengerBarView.xib */; };
 		F1418CE71D380B2400C404B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1418CE61D380B2400C404B5 /* AppDelegate.swift */; };
 		F1418CEC1D380B2400C404B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1418CEA1D380B2400C404B5 /* Main.storyboard */; };
 		F1418CEE1D380B2400C404B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1418CED1D380B2400C404B5 /* Assets.xcassets */; };
@@ -226,7 +228,7 @@
 		4434E3E3AB07FD4D706FA792 /* Pods_nMessengerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nMessengerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		450F800776D5E44E189D17B5 /* Pods-nMessenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nMessenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-nMessenger/Pods-nMessenger.release.xcconfig"; sourceTree = "<group>"; };
 		6FE5F19B1D8C1E2600740A22 /* FullScreenImageWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenImageWrapper.swift; sourceTree = "<group>"; };
-		6FE5F19F1D8C3D2000740A22 /* InputBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InputBarView.xib; sourceTree = "<group>"; };
+		6FE5F1A31D8FC4D400740A22 /* NMessengerBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NMessengerBarView.xib; path = ../../../../../../../../Desktop/NMessengerBarView.xib; sourceTree = "<group>"; };
 		B33678912C6C029F37B9796C /* Pods-nMessenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nMessenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-nMessenger/Pods-nMessenger.debug.xcconfig"; sourceTree = "<group>"; };
 		BD97AC86526A344CE16949C3 /* Pods_nMessengerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nMessengerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C25A14129EAD02084B6D6867 /* Pods_nMessenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nMessenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -885,8 +887,8 @@
 		F1FC87351D63813700F3C21C /* InputBarView */ = {
 			isa = PBXGroup;
 			children = (
+				6FE5F1A31D8FC4D400740A22 /* NMessengerBarView.xib */,
 				F14C8B681D66273700F8616F /* InputBarView.swift */,
-				6FE5F19F1D8C3D2000740A22 /* InputBarView.xib */,
 			);
 			path = InputBarView;
 			sourceTree = "<group>";
@@ -1088,7 +1090,6 @@
 				F1FC874F1D63813700F3C21C /* loadBubble_0014_Layer-25@1x.png in Resources */,
 				F1E73C481D760B6300E61960 /* flashIcon.png in Resources */,
 				F1E73C491D760B6300E61960 /* flashIcon@2x.png in Resources */,
-				6FE5F1A01D8C3D2000740A22 /* InputBarView.xib in Resources */,
 				F1FC879F1D63813700F3C21C /* loadBubble_0016_Layer-23@3x.png in Resources */,
 				F1FC87661D63813700F3C21C /* loadBubble_0037_Layer-2@1x.png in Resources */,
 				F1FC878C1D63813700F3C21C /* loadBubble_0036_Layer-3@2x.png in Resources */,
@@ -1122,6 +1123,7 @@
 				F1FC87671D63813700F3C21C /* loadBubble_0038_Layer-1@1x.png in Resources */,
 				F1FC87731D63813700F3C21C /* loadBubble_0011_Layer-28@2x.png in Resources */,
 				F1FC87AF1D63813700F3C21C /* loadBubble_0032_Layer-7@3x.png in Resources */,
+				6FE5F1A41D8FC4D400740A22 /* NMessengerBarView.xib in Resources */,
 				F1FC87561D63813700F3C21C /* loadBubble_0021_Layer-18@1x.png in Resources */,
 				F1FC87751D63813700F3C21C /* loadBubble_0013_Layer-26@2x.png in Resources */,
 				F1FC877F1D63813700F3C21C /* loadBubble_0023_Layer-16@2x.png in Resources */,
@@ -1158,6 +1160,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FE5F1A51D8FC4D400740A22 /* NMessengerBarView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1165,6 +1168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FE5F1A61D8FC4D400740A22 /* NMessengerBarView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
