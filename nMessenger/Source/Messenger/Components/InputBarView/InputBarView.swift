@@ -57,11 +57,7 @@ open class InputBarView: UIView, UITextViewDelegate {
     fileprivate let textInputViewHeightConst: CGFloat = 30
     
     // MARK: Initialisers
-    /**
-     Initialiser the view.
-     - parameter controller: Must be NMessengerViewController. Sets controller for the view.
-     Calls helper methond to setup the view
-     */
+
     public required init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         
@@ -75,12 +71,6 @@ open class InputBarView: UIView, UITextViewDelegate {
         commonInit()
     }
     
-    /**
-     Initialiser the view.
-     - parameter controller: Must be NMessengerViewController. Sets controller for the view.
-     - parameter controller: Must be CGRect. Sets frame for the view.
-     Calls helper methond to setup the view
-     */
     public required init(controller: NMessengerViewController, frame: CGRect) {
         super.init(frame: frame)
         
@@ -88,10 +78,6 @@ open class InputBarView: UIView, UITextViewDelegate {
         commonInit()
     }
     
-    /**
-     - parameter aDecoder: Must be NSCoder
-     Calls helper methond to setup the view
-     */
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -101,7 +87,7 @@ open class InputBarView: UIView, UITextViewDelegate {
     open func commonInit() {
         loadFromBundle()
         
-        addInputPlaceholder()
+        showPlaceholderText()
     }
     
     // MARK: Initialiser helper methods
@@ -129,13 +115,24 @@ open class InputBarView: UIView, UITextViewDelegate {
     
     // MARK: Text input behaviour
     
+    open func setText(_ newText: String) {
+        if newText.isEmpty {
+            showPlaceholderText()
+        } else {
+            hidePlaceholderText()
+            textInputView.text = newText
+            textInputView?.selectedRange = NSRange(location: newText.characters.count, length: 0)
+            sendButton.isHidden = false
+        }
+    }
+    
     open func getText() -> String {
         return placeholderVisible() ? "" : textInputView.text
     }
     
     open func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if placeholderVisible() {
-            removeInputPlaceholder()
+            hidePlaceholderText()
         }
         
         return true
@@ -143,7 +140,7 @@ open class InputBarView: UIView, UITextViewDelegate {
     
     open func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         if textInputView.text.isEmpty {
-            addInputPlaceholder()
+            showPlaceholderText()
         }
         
         textInputView.resignFirstResponder()
@@ -165,13 +162,13 @@ open class InputBarView: UIView, UITextViewDelegate {
         }
     }
     
-    open func addInputPlaceholder() {
+    open func showPlaceholderText() {
         textInputView.text = inputPlaceholderText
         textInputView.textColor = placeholderTextColor
         sendButton.isHidden = true
     }
     
-    open func removeInputPlaceholder() {
+    open func hidePlaceholderText() {
         textInputView.text = ""
         textInputView.textColor = textColor
         textInputView.selectedRange = NSRange(location: 0, length: 0)
@@ -183,10 +180,6 @@ open class InputBarView: UIView, UITextViewDelegate {
     
     //MARK: @IBAction selectors
     
-    /**
-     Send button selector
-     Sends the text in textInputView to the controller
-     */
     @IBAction open func sendButtonClicked(_ sender: AnyObject) {
         textInputViewHeight.constant = textInputViewHeightConst
         textInputAreaViewHeight.constant = textInputViewHeightConst + 10
