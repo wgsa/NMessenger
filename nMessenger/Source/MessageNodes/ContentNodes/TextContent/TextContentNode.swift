@@ -11,16 +11,11 @@
 import UIKit
 import AsyncDisplayKit
 
-//MARK: TextMessageNode
-/**
- TextMessageNode class for N Messenger. Extends MessageNode.
- Defines content that is a text.
- */
 open class TextContentNode: ContentNode {
     
     // MARK: Public Variables
     
-    open var insets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10) {
+    open var insets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 5) {
         didSet {
             setNeedsLayout()
         }
@@ -78,7 +73,7 @@ open class TextContentNode: ContentNode {
     
     open fileprivate(set) var textMessageNode: ASTextNode = ASTextNode()
     
-    /** Bool as mutex for handling attributed link long presses*/
+    /** Bool as mutex for handling attributed link long presses */
     fileprivate var lockKey: Bool = false
     
     // MARK: Initialisers
@@ -98,10 +93,8 @@ open class TextContentNode: ContentNode {
     
     // MARK: Initialiser helper method
     
-    /**
-     Creates the text to be display in the cell. Finds links and phone number in the string and creates atrributed string.
-     - parameter textMessageString: Must be String. Sets text for cell.
-     */
+    
+    /** Creates the text to be display in the cell. Finds links and phone number in the string and creates atrributed string. */
     fileprivate func setupTextNode(_ textMessageString: String) {
         backgroundBubble = bubbleConfiguration.getBubble()
         textMessageNode.isUserInteractionEnabled = true
@@ -110,11 +103,11 @@ open class TextContentNode: ContentNode {
                                        NSForegroundColorAttributeName: isIncomingMessage ? incomingTextColor : outgoingTextColor]
         
         let originalString = NSMutableAttributedString(string: textMessageString, attributes: fontAndSizeAndTextColor)
-        let partTwo = NSMutableAttributedString(string: " ", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 1)]) // This workaround prevents emojis from being clipped
+        let stringAppendix = NSMutableAttributedString(string: " ", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 1)]) // This workaround prevents emojis from being clipped
         
         let outputString = NSMutableAttributedString()
         outputString.append(originalString)
-        outputString.append(partTwo)
+        outputString.append(stringAppendix)
         
         let types: NSTextCheckingResult.CheckingType = [.link, .phoneNumber]
         let detector = try! NSDataDetector(types: types.rawValue)
@@ -141,6 +134,7 @@ open class TextContentNode: ContentNode {
     }
     
     //MARK: Helper Methods
+    
     /** Updates the attributed string to the correct incoming/outgoing settings and lays out the component again*/
     fileprivate func updateAttributedText() {
         let tmpString = NSMutableAttributedString(attributedString: textMessageNode.attributedString!)
@@ -155,11 +149,11 @@ open class TextContentNode: ContentNode {
     // MARK: Override AsycDisaplyKit Methods
     
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let width = constrainedSize.max.width * 0.90 - self.insets.left - self.insets.right
+        let width = constrainedSize.max.width * 0.90 - insets.left - insets.right
         
         let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width), ASRelativeDimensionMakeWithPercent(1)))
         textMessageNode.sizeRange = tmp
-        let textMessageSize = ASStaticLayoutSpec(children: [self.textMessageNode])
+        let textMessageSize = ASStaticLayoutSpec(children: [textMessageNode])
         
         return  ASInsetLayoutSpec(insets: insets, child: textMessageSize)
     }
@@ -170,9 +164,7 @@ open class TextContentNode: ContentNode {
         return attribute == "LinkAttribute" || attribute == "PhoneNumberAttribute"
     }
     
-    /**
-     Implementing tappedLinkAttribute - handle tap event on links and phone numbers
-     */
+    /** Implementing tappedLinkAttribute - handle tap event on links and phone numbers */
     open func textNode(_ textNode: ASTextNode, tappedLinkAttribute attribute: String, value: Any, at point: CGPoint, textRange: NSRange) {
         if attribute == "LinkAttribute" {
             if !lockKey {
