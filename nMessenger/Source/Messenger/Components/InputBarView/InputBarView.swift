@@ -24,20 +24,16 @@ open class InputBarView: UIView, UITextViewDelegate {
     @IBOutlet open weak var sendButton: UIButton!
     @IBOutlet open weak var cameraButton: UIButton!
     @IBOutlet open weak var textInputAreaViewHeight: NSLayoutConstraint!
-    @IBOutlet open weak var textInputViewHeight: NSLayoutConstraint!
     
     //MARK: Public Parameters
     
-    open var nibName = "NMessengerBarView"
+    open var nibName = "InputBarView"
     
     open var buttonTintColor = UIColor.n1ActionBlueColor()
     open var inputAreaBackgroundColor = UIColor.white
     
     open var placeholderTextColor = UIColor.lightGray
     open var textColor = UIColor.n1DarkestGreyColor()
-    
-    //CGFloat to the fine the number of rows a user can type
-    open var numberOfRows: CGFloat = 7
     
     open var sendButtonTitle = "Send"
     
@@ -54,7 +50,8 @@ open class InputBarView: UIView, UITextViewDelegate {
     //MARK: Private Parameters
     
     //CGFloat as defualt height for input view
-    fileprivate let textInputViewHeightConst: CGFloat = 30
+    fileprivate let textInputViewHeightConst: CGFloat = 45
+    fileprivate let maxHeight: CGFloat = 120
     
     // MARK: Initialisers
 
@@ -143,8 +140,7 @@ open class InputBarView: UIView, UITextViewDelegate {
             showPlaceholderText()
         }
         
-        textInputView.resignFirstResponder()
-        return true
+        return textInputView.resignFirstResponder()
     }
     
     open func textViewDidChange(_ textView: UITextView) {
@@ -154,8 +150,7 @@ open class InputBarView: UIView, UITextViewDelegate {
         var newFrame = textView.frame
         newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
         
-        textInputViewHeight.constant = newFrame.size.height
-        textInputAreaViewHeight.constant = newFrame.size.height + 10
+        textInputAreaViewHeight.constant = min(maxHeight, newFrame.size.height + 6)
         
         UIView.animate(withDuration: 0.1) {
             self.sendButton.isHidden = textView.text.isEmpty
@@ -181,8 +176,7 @@ open class InputBarView: UIView, UITextViewDelegate {
     //MARK: @IBAction selectors
     
     @IBAction open func sendButtonClicked(_ sender: AnyObject) {
-        textInputViewHeight.constant = textInputViewHeightConst
-        textInputAreaViewHeight.constant = textInputViewHeightConst + 10
+        textInputAreaViewHeight.constant = textInputViewHeightConst
         if textInputView.text != "" {
             let _ = controller.sendText(textInputView.text, isIncomingMessage: false)
             textInputView.text = ""
