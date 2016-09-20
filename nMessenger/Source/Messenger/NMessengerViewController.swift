@@ -498,7 +498,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         let imageWrapper = FullScreenImageWrapper(image)
         let closeIcon = UIImage() // If close button is wanted replace with UIImage(named:"icClose")
         let buttonAssets = CloseButtonAssets(normal: closeIcon, highlighted: closeIcon)
-        let configuration = ImageViewerConfiguration(imageSize: CGSize(width: 10, height: 10), closeButtonAssets: buttonAssets)
+        let configuration = ImageViewerConfiguration(imageSize: CGSize(width: image.size.width, height: image.size.height), closeButtonAssets: buttonAssets)
         
         let imageViewer = ImageViewerController(imageProvider: imageWrapper, configuration: configuration, displacedView: source)
         presentImageViewer(imageViewer)
