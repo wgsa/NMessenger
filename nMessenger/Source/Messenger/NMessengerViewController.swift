@@ -458,7 +458,11 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     }
     
     open func createPlaceholderMessage(width: CGFloat?, height: CGFloat?, isIncomingMessage: Bool) -> GeneralMessengerCell {
-        let placeholder = UIImage(named:"icPlaceholder") ?? UIImage()
+        return createPlaceholderMessage(withImage: UIImage(named: "icPlaceholder"), width: width, height: height, isIncomingMessage: isIncomingMessage)
+    }
+    
+    open func createPlaceholderMessage(withImage image: UIImage?, width: CGFloat?, height: CGFloat?, isIncomingMessage: Bool) -> GeneralMessengerCell {
+        let placeholder = image ?? UIImage()
         
         let imageContent = ImageContentNode(image: placeholder, bubbleConfiguration: imageBubbleConfiguration)
         imageContent.height = height
