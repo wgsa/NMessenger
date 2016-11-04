@@ -204,7 +204,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
                                 self.messengerView.scrollToLastMessage(true)
                             }
                             
-                }, completion: nil
+            }, completion: nil
             )
         }
     }
@@ -490,19 +490,22 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     }
     
     open func swapImageInMessage(_ messageNode: MessageNode, image: UIImage) {
+        swapImageInMessage(messageNode, image: image, tapDelegate: self)
+    }
+    
+    open func swapImageInMessage(_ messageNode: MessageNode, image: UIImage, tapDelegate: ImageTapDelegate) {
         let imageContentNode = ImageContentNode(image: image, bubbleConfiguration: imageBubbleConfiguration, contentMode: .scaleAspectFill)
-        imageContentNode.imageTapDelegate = self
+        imageContentNode.imageTapDelegate = tapDelegate
         imageContentNode.view.alpha = 0.1
         
         UIView.animate(withDuration: 0.2, animations: {
             messageNode.contentNode?.view.alpha = 0
-            }, completion: { (success) in
-                UIView.animate(withDuration: 0.6) {
-                    imageContentNode.view.alpha = 1.0
-                }
-                messageNode.contentNode = imageContentNode
+        }, completion: { success in
+            UIView.animate(withDuration: 0.6) {
+                imageContentNode.view.alpha = 1.0
             }
-        )
+            messageNode.contentNode = imageContentNode
+        })
     }
     
     open func imageTapped(_ image: UIImage, sender source: UIView) {
