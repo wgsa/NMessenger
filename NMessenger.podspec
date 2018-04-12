@@ -133,6 +133,6 @@ NMessenger is a fast, lightweight messenger component built on AsyncDisplaykit a
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "AsyncDisplayKit", "1.9.90"
+  s.dependency "AsyncDisplayKit", "1.9.92"
   s.dependency "ImageViewer"
 end
