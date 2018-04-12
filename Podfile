@@ -6,7 +6,7 @@ target 'nMessenger' do
   use_frameworks!
 
   # Pods for nMessenger
-#  pod 'AsyncDisplayKit', '~> 1.9.90'
+#  pod 'AsyncDisplayKit', '~> 1.9.92'
   pod 'AsyncDisplayKit', :git => 'https://github.com/wgsa/AsyncDisplayKit.git'
   pod 'ImageViewer', :git => 'https://github.com/wgsa/ImageViewer.git'
   target 'nMessengerTests' do
