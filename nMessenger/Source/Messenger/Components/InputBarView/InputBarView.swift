@@ -118,7 +118,7 @@ open class InputBarView: UIView, UITextViewDelegate {
         } else {
             hidePlaceholderText()
             textInputView.text = newText
-            textInputView?.selectedRange = NSRange(location: newText.characters.count, length: 0)
+            textInputView?.selectedRange = NSRange(location: newText.count, length: 0)
             sendButton.isHidden = false
         }
     }

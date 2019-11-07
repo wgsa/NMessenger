@@ -209,7 +209,7 @@ open class NMessenger: UIView {
     }
     
     open func forceBatchFetch() {
-        let leadingScreens = messengerNode?.view.leadingScreensForBatching
+        //let leadingScreens = messengerNode?.view.leadingScreensForBatching
         if doesBatchFetch && self.messengerDelegate.batchFetchContent != nil && !self.state.batchFetchLock.isFetching(){
             self.state.batchFetchLock.beginBatchFetching()
             self.batchFetchDataInBackground()
@@ -431,8 +431,8 @@ open class NMessenger: UIView {
      - parameter competion: called once the semaphore has expired
      */
     fileprivate func waitForMessageLock(_ completion: @escaping ()->Void) {
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
-            self.state.messageLock.wait(timeout: DispatchTime.distantFuture)
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
+            let _ = self.state.messageLock.wait(timeout: DispatchTime.distantFuture)
             completion()
         }
     }
@@ -543,7 +543,7 @@ open class NMessenger: UIView {
         }
         
         //run this on a background thread
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
             self.messengerDelegate.batchFetchContent?()
         }
     }

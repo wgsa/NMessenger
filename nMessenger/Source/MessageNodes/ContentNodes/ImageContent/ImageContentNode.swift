@@ -90,8 +90,8 @@ open class ImageContentNode: ContentNode {
         if let width = self.width, let height = self.height {
             proportions = width / height
         }
-        var scaledWidth = wMax
-        var scaledHeight = min(wMax / proportions, hMax)
+        let scaledWidth = wMax
+        let scaledHeight = min(wMax / proportions, hMax)
         imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: scaledWidth, height: scaledHeight))
         return ASStaticLayoutSpec(children: [self.imageMessageNode])
     }
