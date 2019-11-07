@@ -145,19 +145,19 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      */
     fileprivate func setUpConstraintsForViews() {
         inputBarView.translatesAutoresizingMaskIntoConstraints = false
-        inputBarBottomSpacing = NSLayoutConstraint(item: inputBarView, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
+        inputBarBottomSpacing = NSLayoutConstraint(item: inputBarView!, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0)
         view.addConstraint(inputBarBottomSpacing)
-        view.addConstraint(NSLayoutConstraint(item: inputBarView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: inputBarView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: inputBarView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: inputBarView.frame.size.height))
-        view.addConstraint(NSLayoutConstraint(item: inputBarView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 46))
+        view.addConstraint(NSLayoutConstraint(item: inputBarView!, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: inputBarView!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: inputBarView!, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: inputBarView.frame.size.height))
+        view.addConstraint(NSLayoutConstraint(item: inputBarView!, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 46))
         
         messengerView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addConstraint(NSLayoutConstraint(item: messengerView, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: messengerView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: messengerView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: messengerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: view.frame.size.height-100))
+        view.addConstraint(NSLayoutConstraint(item: messengerView!, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: messengerView!, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: messengerView!, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: messengerView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: view.frame.size.height-100))
     }
     
     override open var shouldAutorotate: Bool {

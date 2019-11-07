@@ -7,6 +7,6 @@ target 'nMessenger' do
 
   # Pods for nMessenger
   pod 'AsyncDisplayKit', :git => 'https://github.com/wgsa/AsyncDisplayKit.git'
-  pod 'ImageViewer', :git => 'https://github.com/wgsa/ImageViewer.git', :branch => 'jonny/swift42'
+  pod 'ImageViewer', :git => 'https://github.com/wgsa/ImageViewer.git', :branch => 'jonny/swift5'
 
 end

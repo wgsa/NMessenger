@@ -11,6 +11,7 @@
 import Foundation
 import Photos
 import AVFoundation
+import UIKit
 //MARK: CameraViewController
 /**
  CameraViewDelegate protocol for NMessenger.
@@ -426,6 +427,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             switch status {
                 case .authorized: completion(true)
                 case .denied, .notDetermined, .restricted : completion(false)
+            @unknown default:
+                completion(false)
             }
         }
     }

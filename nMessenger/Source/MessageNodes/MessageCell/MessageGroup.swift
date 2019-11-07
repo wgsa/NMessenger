@@ -305,7 +305,7 @@ open class MessageGroup: GeneralMessengerCell {
      */
     open func replaceMessage(_ message: GeneralMessengerCell, withMessage newMessage: GeneralMessengerCell, completion: (()->Void)?) {
         if self.messages.contains(message) {
-            if let index = self.messages.index(of: message) {
+            if let index = self.messages.firstIndex(of: message) {
                 self.updateMessage(newMessage)
                 self.layoutCompletionBlock = completion
                 message.currentTableNode = nil
@@ -343,7 +343,7 @@ open class MessageGroup: GeneralMessengerCell {
     open func removeMessageFromGroup(_ message: GeneralMessengerCell, completion: (()->Void)?) {
         
         if self.messages.contains(message) {
-            if let index = self.messages.index(of: message) {
+            if let index = self.messages.firstIndex(of: message) {
                 let isLastMessage = self.messages.last == message
                 self.layoutCompletionBlock = completion
                 message.currentTableNode = nil
@@ -416,7 +416,7 @@ open class MessageGroup: GeneralMessengerCell {
     
     /** Calls and resets the layout completion block */
     fileprivate func callLayoutCompletionBlock() {
-        self.state = .none
+        self.state = MessageGroupState.none
         self.layoutCompletionBlock?()
         self.layoutCompletionBlock = nil
     }
