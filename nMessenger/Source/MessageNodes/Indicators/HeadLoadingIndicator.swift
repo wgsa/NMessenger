@@ -41,11 +41,11 @@ open class HeadLoadingIndicator: GeneralMessengerCell {
         addSubnode(text)
         text.attributedString = NSAttributedString(
             string: "Loading…",
-            attributes: [
-                NSFontAttributeName: UIFont.systemFont(ofSize: 12),
-                NSForegroundColorAttributeName: UIColor.lightGray,
-                NSKernAttributeName: -0.3
-            ])
+            attributes: convertToOptionalNSAttributedStringKeyDictionary([
+                convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.systemFont(ofSize: 12),
+                convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.lightGray,
+                convertFromNSAttributedStringKey(NSAttributedString.Key.kern): -0.3
+            ]))
         addSubnode(spinner)
     }
 
@@ -71,7 +71,7 @@ open class SpinnerNode: ASDisplayNode {
     }
 
     public override init() {
-        super.init(viewBlock: { UIActivityIndicatorView(activityIndicatorStyle: .gray) }, didLoad: nil)
+        super.init(viewBlock: { UIActivityIndicatorView(style: .gray) }, didLoad: nil)
         preferredFrameSize.height = 32
     }
     
@@ -79,4 +79,15 @@ open class SpinnerNode: ASDisplayNode {
         super.didLoad()
         activityIndicatorView.startAnimating()
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

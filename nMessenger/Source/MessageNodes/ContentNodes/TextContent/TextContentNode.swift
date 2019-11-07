@@ -99,11 +99,11 @@ open class TextContentNode: ContentNode {
         backgroundBubble = bubbleConfiguration.getBubble()
         textMessageNode.isUserInteractionEnabled = true
         textMessageNode.linkAttributeNames = ["LinkAttribute", "PhoneNumberAttribute"]
-        let fontAndSizeAndTextColor = [NSFontAttributeName: isIncomingMessage ? incomingTextFont : outgoingTextFont,
-                                       NSForegroundColorAttributeName: isIncomingMessage ? incomingTextColor : outgoingTextColor]
+        let fontAndSizeAndTextColor = [convertFromNSAttributedStringKey(NSAttributedString.Key.font): isIncomingMessage ? incomingTextFont : outgoingTextFont,
+                                       convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): isIncomingMessage ? incomingTextColor : outgoingTextColor]
         
-        let originalString = NSMutableAttributedString(string: textMessageString, attributes: fontAndSizeAndTextColor)
-        let stringAppendix = NSMutableAttributedString(string: " ", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 1)]) // This workaround prevents emojis from being clipped
+        let originalString = NSMutableAttributedString(string: textMessageString, attributes: convertToOptionalNSAttributedStringKeyDictionary(fontAndSizeAndTextColor))
+        let stringAppendix = NSMutableAttributedString(string: " ", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont.systemFont(ofSize: 1)])) // This workaround prevents emojis from being clipped
         
         let outputString = NSMutableAttributedString()
         outputString.append(originalString)
@@ -116,14 +116,14 @@ open class TextContentNode: ContentNode {
         
         for match in matches {
             if let url = match.url {
-                outputString.addAttribute("LinkAttribute", value: url, range: match.range)
-                outputString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.styleSingle.rawValue, range: match.range)
-                outputString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: match.range)
+                outputString.addAttribute(convertToNSAttributedStringKey("LinkAttribute"), value: url, range: match.range)
+                outputString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: match.range)
+                outputString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue, range: match.range)
             }
             if let phoneNumber = match.phoneNumber {
-                outputString.addAttribute("PhoneNumberAttribute", value: phoneNumber, range: match.range)
-                outputString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.styleSingle.rawValue, range: match.range)
-                outputString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: match.range)
+                outputString.addAttribute(convertToNSAttributedStringKey("PhoneNumberAttribute"), value: phoneNumber, range: match.range)
+                outputString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: match.range)
+                outputString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue, range: match.range)
             }
         }
         
@@ -138,8 +138,8 @@ open class TextContentNode: ContentNode {
     /** Updates the attributed string to the correct incoming/outgoing settings and lays out the component again*/
     fileprivate func updateAttributedText() {
         let tmpString = NSMutableAttributedString(attributedString: textMessageNode.attributedString!)
-        tmpString.addAttributes([NSForegroundColorAttributeName: isIncomingMessage ? incomingTextColor : outgoingTextColor,
-                                 NSFontAttributeName: isIncomingMessage ? incomingTextFont : outgoingTextFont],
+        tmpString.addAttributes(convertToNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): isIncomingMessage ? incomingTextColor : outgoingTextColor,
+                                 convertFromNSAttributedStringKey(NSAttributedString.Key.font): isIncomingMessage ? incomingTextFont : outgoingTextFont]),
                                 range: NSMakeRange(0, tmpString.length))
         textMessageNode.attributedString = tmpString
         
@@ -170,13 +170,13 @@ open class TextContentNode: ContentNode {
             if !lockKey {
                 if let tmpString = textMessageNode.attributedString {
                     let attributedString =  NSMutableAttributedString(attributedString: tmpString)
-                    attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.lightGray, range: textRange)
+                    attributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.lightGray, range: textRange)
                     textMessageNode.attributedString = attributedString
                     UIApplication.shared.openURL(value as! URL)
                     delay(0.4) {
                         if let tmpString = self.textMessageNode.attributedString {
                             let attributedString =  NSMutableAttributedString(attributedString: tmpString)
-                            attributedString.removeAttribute(NSBackgroundColorAttributeName, range: textRange)
+                            attributedString.removeAttribute(NSAttributedString.Key.backgroundColor, range: textRange)
                             self.textMessageNode.attributedString = attributedString
                         }
                     }
@@ -197,7 +197,7 @@ open class TextContentNode: ContentNode {
             lockKey = true
             if let tmpString = textMessageNode.attributedString {
                 let attributedString =  NSMutableAttributedString(attributedString: tmpString)
-                attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.lightGray, range: textRange)
+                attributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.lightGray, range: textRange)
                 textMessageNode.attributedString = attributedString
                 
                 let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -237,7 +237,7 @@ open class TextContentNode: ContentNode {
             delay(0.4) {
                 if let tmpString = self.textMessageNode.attributedString {
                     let attributedString =  NSMutableAttributedString(attributedString: tmpString)
-                    attributedString.removeAttribute(NSBackgroundColorAttributeName, range: textRange)
+                    attributedString.removeAttribute(NSAttributedString.Key.backgroundColor, range: textRange)
                     self.textMessageNode.attributedString = attributedString
                 }
             }
@@ -246,7 +246,7 @@ open class TextContentNode: ContentNode {
             lockKey = true
             if let tmpString = textMessageNode.attributedString {
                 let attributedString =  NSMutableAttributedString(attributedString: tmpString)
-                attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.lightGray, range: textRange)
+                attributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.lightGray, range: textRange)
                 textMessageNode.attributedString = attributedString
                 
                 let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -298,7 +298,7 @@ open class TextContentNode: ContentNode {
             delay(0.4) {
                 if let tmpString = self.textMessageNode.attributedString {
                     let attributedString =  NSMutableAttributedString(attributedString: tmpString)
-                    attributedString.removeAttribute(NSBackgroundColorAttributeName, range: textRange)
+                    attributedString.removeAttribute(NSAttributedString.Key.backgroundColor, range: textRange)
                     self.textMessageNode.attributedString = attributedString
                 }
             }
@@ -316,7 +316,7 @@ open class TextContentNode: ContentNode {
     }
     
     open override func messageNodeLongPressSelector(_ recognizer: UITapGestureRecognizer) {
-        if recognizer.state == UIGestureRecognizerState.began {
+        if recognizer.state == UIGestureRecognizer.State.began {
             let touchLocation = recognizer.location(in: view)
             if textMessageNode.frame.contains(touchLocation) {
                 becomeFirstResponder()
@@ -330,7 +330,28 @@ open class TextContentNode: ContentNode {
         }
     }
     
-    open func copySelector() {
+    @objc open func copySelector() {
         UIPasteboard.general.string = textMessageNode.attributedString!.string
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSAttributedStringKey(_ input: String) -> NSAttributedString.Key {
+	return NSAttributedString.Key(rawValue: input)
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSAttributedStringKeyDictionary(_ input: [String: Any]) -> [NSAttributedString.Key: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

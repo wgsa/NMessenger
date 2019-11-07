@@ -49,7 +49,7 @@ open class ImageContentNode: ContentNode {
         self.setupImageNode(image, contentMode: .center)
     }
     
-    public init(image: UIImage, bubbleConfiguration: BubbleConfigurationProtocol? = nil, contentMode: UIViewContentMode) {
+    public init(image: UIImage, bubbleConfiguration: BubbleConfigurationProtocol? = nil, contentMode: UIView.ContentMode) {
         super.init(bubbleConfiguration: bubbleConfiguration)
         
         self.setupImageNode(image, contentMode: contentMode)
@@ -67,7 +67,7 @@ open class ImageContentNode: ContentNode {
      Sets the image to be display in the cell. Clips and rounds the corners.
      - parameter image: Must be UIImage. Sets image for cell.
      */
-    fileprivate func setupImageNode(_ image: UIImage, contentMode: UIViewContentMode) {
+    fileprivate func setupImageNode(_ image: UIImage, contentMode: UIView.ContentMode) {
         imageMessageNode.image = image
         imageMessageNode.clipsToBounds = true
         imageMessageNode.contentMode = contentMode

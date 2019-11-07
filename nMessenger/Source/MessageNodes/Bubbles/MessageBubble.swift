@@ -56,10 +56,10 @@ class MessageBubble: Bubble {
         }
         
         path = CGMutablePath()
-        path.addArc(center: CGPoint(x: rect.maxX, y: rect.minY), radius: radius2, startAngle: CGFloat(-M_PI_2), endAngle: 0, clockwise: false)
-        path.addArc(center: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius2, startAngle: CGFloat(0), endAngle: CGFloat(M_PI_2), clockwise: false)
-        path.addArc(center: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: false)
-        path.addArc(center: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI), endAngle: CGFloat(-M_PI_2), clockwise: false)
+        path.addArc(center: CGPoint(x: rect.maxX, y: rect.minY), radius: radius2, startAngle: CGFloat(-Double.pi/2), endAngle: 0, clockwise: false)
+        path.addArc(center: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius2, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi/2), clockwise: false)
+        path.addArc(center: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(Double.pi/2), endAngle: CGFloat(Double.pi), clockwise: false)
+        path.addArc(center: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(Double.pi), endAngle: CGFloat(-Double.pi/2), clockwise: false)
         
         path.closeSubpath()
     }

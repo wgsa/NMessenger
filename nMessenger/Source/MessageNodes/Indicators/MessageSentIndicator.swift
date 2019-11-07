@@ -52,11 +52,11 @@ open class MessageSentIndicator: GeneralMessengerCell {
         set {
             text.attributedString = NSAttributedString(
                 string: newValue != nil ? newValue! : "",
-                attributes: [
-                    NSFontAttributeName: font,
-                    NSForegroundColorAttributeName: textColor,
-                    NSKernAttributeName: -0.3
-                ])
+                attributes: convertToOptionalNSAttributedStringKeyDictionary([
+                    convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,
+                    convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor,
+                    convertFromNSAttributedStringKey(NSAttributedString.Key.kern): -0.3
+                ]))
             self.setNeedsLayout()
         } get {
             return text.attributedString?.string
@@ -65,11 +65,11 @@ open class MessageSentIndicator: GeneralMessengerCell {
     
     fileprivate func updateAttributedText() {
         let tmpString = NSMutableAttributedString(string: self.messageSentText ?? "")
-        tmpString.addAttributes([
-            NSFontAttributeName: font,
-            NSForegroundColorAttributeName: textColor,
-            NSKernAttributeName: -0.3
-            ], range: NSMakeRange(0, tmpString.length))
+        tmpString.addAttributes(convertToNSAttributedStringKeyDictionary([
+            convertFromNSAttributedStringKey(NSAttributedString.Key.font): font,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor,
+            convertFromNSAttributedStringKey(NSAttributedString.Key.kern): -0.3
+            ]), range: NSMakeRange(0, tmpString.length))
         text.attributedString = tmpString
         
         setNeedsLayout()
@@ -90,4 +90,20 @@ open class MessageSentIndicator: GeneralMessengerCell {
         let paddingLayout = ASInsetLayoutSpec(insets: cellPadding, child: stackLayout)
         return paddingLayout
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSAttributedStringKeyDictionary(_ input: [String: Any]) -> [NSAttributedString.Key: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

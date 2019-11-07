@@ -85,7 +85,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     // MARK: Initialisers helper methods
     
     fileprivate func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(NMessengerViewController.keyboardNotification(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NMessengerViewController.keyboardNotification(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     fileprivate func removeObservers() {
@@ -102,7 +102,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         setUpConstraintsForViews()
         
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(NMessengerViewController.respondToSwipeGesture(_:)))
-        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        swipeDown.direction = UISwipeGestureRecognizer.Direction.down
         inputBarView.textInputAreaView.addGestureRecognizer(swipeDown)
     }
     
@@ -125,11 +125,11 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         
         let imageViewBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         imageViewBackground.image = image
-        imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
+        imageViewBackground.contentMode = UIView.ContentMode.scaleAspectFill
         
         messengerView.messengerNode?.isOpaque = false
         view.addSubview(imageViewBackground)
-        view.sendSubview(toBack: imageViewBackground)
+        view.sendSubviewToBack(imageViewBackground)
     }
     
     /**
@@ -170,13 +170,13 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     /**
      Moves InputBarView up and down accoridng to the location of the keyboard
      */
-    func keyboardNotification(_ notification: Notification) {
+    @objc func keyboardNotification(_ notification: Notification) {
         if let userInfo = (notification as NSNotification).userInfo {
-            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-            let duration: TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
-            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
-            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions().rawValue
-            let animationCurve: UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let duration: TimeInterval = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions().rawValue
+            let animationCurve: UIView.AnimationOptions = UIView.AnimationOptions(rawValue: animationCurveRaw)
             
             if endFrame?.origin.y >= UIScreen.main.bounds.size.height {
                 self.inputBarBottomSpacing.constant = 0
@@ -214,7 +214,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     /**
      Closes the messenger on swipe on InputBarView
      */
-    func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
+    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
         inputBarView.textInputView.resignFirstResponder()
     }
     
