@@ -105,7 +105,7 @@ open class ContentNode: ASDisplayNode {
     /**
      Draws the content in the bubble. This is called on a background thread.
      */
-    open func drawRect(_ bounds: CGRect, withParameters parameters: NSObjectProtocol!,
+    @objc open func drawRect(_ bounds: CGRect, withParameters parameters: NSObjectProtocol!,
                   isCancelled isCancelledBlock: asdisplaynode_iscancelled_block_t, isRasterizing: Bool) {
         self.isOpaque = false
         if !isRasterizing {
